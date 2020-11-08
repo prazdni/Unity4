@@ -1,4 +1,11 @@
-﻿$HEADER$namespace $NAMESPACE$
+﻿using System;
+using UnityEngine;
+
+namespace Asteroids
 {
-  public interface $INTERFACE$ {$END$}
+    public interface IEnemy : IExecute
+    {
+        Transform SceneEnemy { get; }
+        Action<Transform> OnAction { get; }
+    }
 }

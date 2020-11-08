@@ -3,34 +3,43 @@ using UnityEngine;
 
 namespace Asteroids
 {
-    public class AsteroidCollisionChecker : IExecute
+    public class CollisionChecker
     {
         private IShip _ship;
-        private Transform _sceneEnemy;
-        private IEnemy _enemy;
         private bool _isInteracted;
         
-        public AsteroidCollisionChecker(Transform sceneEnemy, IEnemy enemy, IShip ship)
+        public CollisionChecker(IShip ship)
         {
             _ship = ship;
-            _sceneEnemy = sceneEnemy;
-            _enemy = enemy;
             _isInteracted = false;
         }
 
-        public void Execute(float deltaTime)
+        public bool IsCollision(IEnemy enemy)
         {
-            if ((_ship.ShipTransform.position - _sceneEnemy.transform.position).sqrMagnitude < Constants.CollisionDistance)
+            var isInteracted = false;
+            
+            if ((_ship.ShipTransform.position - enemy.SceneEnemy.transform.position).sqrMagnitude < Constants.CollisionDistance)
             {
-                _isInteracted = true;
-                _ship.OnAction.Invoke(_sceneEnemy.transform);
-                _enemy.OnAction.Invoke(_ship.ShipTransform);
+                isInteracted = true;
+                _ship.OnAction.Invoke(enemy.SceneEnemy.transform);
+                enemy.OnAction.Invoke(_ship.ShipTransform);
             }
+
+            return isInteracted;
         }
 
-        public void SetInteraction(bool isInteracted)
+        public bool IsCollision(Transform sceneObject)
         {
-            _isInteracted = isInteracted;
+            var isInteracted = false;
+            
+            if ((_ship.ShipTransform.position - sceneObject.position).sqrMagnitude < Constants.CollisionDistance)
+            {
+                isInteracted = true;
+                _ship.OnAction.Invoke(sceneObject.transform);
+            }
+
+            return isInteracted;
         }
+
     }
 }

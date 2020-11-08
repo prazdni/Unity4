@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Asteroids
 {
-    [CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/EnemyData", order = 1)]
-    public class EnemyData : ScriptableObject
+    public abstract class EnemyData : ScriptableObject
     {
-        public EnemyType TypeOfEnemy;
-        public Health EnemyHealth;
+        [SerializeField] private Transform _enemyPrefab;
+        [SerializeField] private EnemyType _typeOfEnemy;
+        [SerializeField] private Health _enemyHealth;
+
+        public Transform EnemyPrefab => _enemyPrefab;
+
+        public EnemyType TypeOfEnemy => _typeOfEnemy;
+
+        public Health EnemyHealth => _enemyHealth;
     }
 }

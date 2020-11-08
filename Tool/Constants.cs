@@ -1,4 +1,7 @@
-﻿$HEADER$namespace $NAMESPACE$
+﻿namespace Asteroids
 {
-  public class $CLASS$ {$END$}
+    public class Constants
+    {
+        public static float CollisionDistance = 2.0f;
+    }
 }

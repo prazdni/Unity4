@@ -1,34 +1,58 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Asteroids
 {
-    public class EnemyCreator
+    public class EnemyPool
     {
         private EnemyFactory _enemyFactory;
 
-        private List<Enemy> _enemies;
-
-        public EnemyCreator(IShip ship, params EnemyData[] data)
+        private List<IEnemy> _enemies;
+        private EnemyData[] _enemyData;
+        
+        public EnemyPool(IShip ship, params EnemyData[] data)
         {
             _enemyFactory = new EnemyFactory(ship);
-            
-            _enemies = new List<Enemy>();
+            _enemies = new List<IEnemy>();
+            _enemyData = new EnemyData[data.Length];
+            CopyEnemyData(data);
+            CreateEnemies();
+        }
 
-            for (int i = 0; i < data.Length; i++)
+        public IEnemy GetEnemy()
+        {
+            var enemy = _enemies.FirstOrDefault(e => !e.SceneEnemy.gameObject.activeSelf);
+
+            if (enemy == null)
             {
-                _enemies.Add(_enemyFactory.CreateEnemy(data[i]));
+                CreateEnemies();
+                enemy = _enemies.FirstOrDefault(e => !e.SceneEnemy.gameObject.activeSelf);
+            }
+
+            return enemy;
+        }
+
+        public void ReturnEnemy(Transform enemyTransform)
+        {
+            enemyTransform.gameObject.SetActive(false);
+        }
+
+        private void CreateEnemies()
+        {
+            for (int i = 0; i < _enemyData.Length; i++)
+            {
+                var enemy = _enemyFactory.CreateHiddenEnemy(_enemyData[i]);
+                _enemies.Add(enemy);
             }
         }
 
-        public List<Enemy> GetEnemies()
+        private void CopyEnemyData(EnemyData[] data)
         {
-            return _enemies;
-        }
-
-        public Enemy GetRandomEnemy()
-        {
-            return _enemies[Random.Range(0, _enemies.Count)];
+            for (int i = 0; i < data.Length; i++)
+            {
+                _enemyData[i] = data[i];
+            }
         }
     }
 }

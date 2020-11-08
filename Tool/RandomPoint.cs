@@ -1,4 +1,9 @@
-﻿$HEADER$namespace $NAMESPACE$
+﻿using UnityEngine;
+
+namespace Asteroids
 {
-  public class $CLASS$ {$END$}
+    public class RandomPoint
+    {
+
+    }
 }

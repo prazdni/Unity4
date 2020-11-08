@@ -13,19 +13,27 @@ namespace Asteroids
             _ship = ship;
         }
         
-        public Enemy CreateEnemy(EnemyData enemyData)
+        public IEnemy CreateHiddenEnemy(EnemyData enemyData)
         {
+            IEnemy enemy = null;
+            
             switch (enemyData.TypeOfEnemy)
             {
                 case EnemyType.None:
                     throw new ArgumentException("Missing enemy type");
                 case EnemyType.Asteroid:
-                    return new Asteroid(Object.Instantiate(enemyData.EnemyPrefab), enemyData as AsteroidData, _ship);
+                    enemy = new Asteroid(Object.Instantiate(enemyData.EnemyPrefab), enemyData as AsteroidData, _ship);
+                    break;
                 case EnemyType.Cruiser:
-                    return new Cruiser(Object.Instantiate(enemyData.EnemyPrefab), enemyData as CruiserData, _ship);
+                    enemy = new Cruiser(Object.Instantiate(enemyData.EnemyPrefab), enemyData as CruiserData, _ship);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(enemyData.TypeOfEnemy), enemyData.TypeOfEnemy, null);
             }
+            
+            enemy.SceneEnemy.gameObject.SetActive(false);
+
+            return enemy;
         }
     }
 }

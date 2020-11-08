@@ -2,28 +2,50 @@
 
 namespace Asteroids
 {
-    public class BulletReturnChecker
+    public class ReturnChecker
     {
         private IShip _ship;
         private Camera _camera;
+        private CollisionChecker _collisionChecker;
         
-        public BulletReturnChecker(IShip ship)
+        public ReturnChecker(IShip ship)
         {
             _ship = ship;
             _camera = Camera.main;
+            _collisionChecker = new CollisionChecker(_ship);
         }
 
-        public bool ShouldReturn(Transform bullet)
+        public bool ShouldReturn(Transform sceneObject)
         {
             var shouldReturn = false;
             
-            if ((bullet.position - _ship.ShipTransform.position).sqrMagnitude < 0.05f)
+            if (_collisionChecker.IsCollision(sceneObject))
             {
                 shouldReturn = true;
             }
             else
             {
-                var vec = _camera.WorldToViewportPoint(bullet.position);
+                var vec = _camera.WorldToViewportPoint(sceneObject.position);
+                if (vec.x < 0 || vec.x > 1 || vec.y < 0 || vec.y > 1)
+                {
+                    shouldReturn = true;
+                }
+            }
+
+            return shouldReturn;
+        }
+        
+        public bool ShouldReturn(IEnemy enemy)
+        {
+            var shouldReturn = false;
+            
+            if (_collisionChecker.IsCollision(enemy))
+            {
+                shouldReturn = true;
+            }
+            else
+            {
+                var vec = _camera.WorldToViewportPoint(enemy.SceneEnemy.position);
                 if (vec.x < 0 || vec.x > 1 || vec.y < 0 || vec.y > 1)
                 {
                     shouldReturn = true;

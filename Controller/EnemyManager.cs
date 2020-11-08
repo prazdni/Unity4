@@ -3,44 +3,49 @@ using UnityEngine;
 
 namespace Asteroids
 {
-    public class EnemyController : IExecute
+    public class EnemyManager : IExecute
     {
-        private List<Enemy> _enemies;
-        private int _enemyCapacity;
-        private IShip _ship;
+        private List<IEnemy> _enemies;
         private Timer _timer;
-        private EnemyManager _enemyManager;
+        private EnemyPool _enemyPool;
+        private ReturnChecker _returnChecker;
+        private PositionSetter _positionSetter;
         
-        public EnemyController(int enemyCapacity, IShip ship, params EnemyData[] enemies)
+        public EnemyManager(IShip ship, params EnemyData[] enemies)
         {
-            _enemyCapacity = enemyCapacity;
-            _enemyManager = new EnemyManager(ship, enemies);
-            _ship = ship;
-            _enemies = _enemyManager.GetEnemies();
-
+            _enemyPool = new EnemyPool(ship, enemies);
+            _enemies = new List<IEnemy>();
+            _returnChecker = new ReturnChecker(ship);
+            _positionSetter = new PositionSetter(ship);
+            
+            AddEnemies(enemies.Length);
         }
 
         public void Execute(float deltaTime)
         {
-            bool allHidden = true;
-            
             for (int i = 0; i < _enemies.Count; i++)
             {
                 if (_enemies[i].SceneEnemy.gameObject.activeSelf)
                 {
-                    allHidden = false;
-                    _enemies[i].Execute(deltaTime);
+                    if (_returnChecker.ShouldReturn(_enemies[i]))
+                    {
+                        _enemyPool.ReturnEnemy(_enemies[i].SceneEnemy);
+                    }
+                    else
+                    {
+                        _enemies[i].Execute(deltaTime);
+                    }
                 }
             }
+        }
 
-            if (allHidden)
+        private void AddEnemies(int capacity)
+        {
+            for (int i = 0; i < capacity; i++)
             {
-                for (int i = 0; i < _enemies.Count; i++)
-                {
-                    _enemies[i].SceneEnemy.gameObject.SetActive(true);
-                }
-                
-                _enemies.Add(_enemyManager.GetRandomEnemy());
+                var enemy = _enemyPool.GetEnemy();
+                enemy.SceneEnemy.gameObject.SetActive(true);
+                _enemies.Add(enemy);
             }
         }
     }
