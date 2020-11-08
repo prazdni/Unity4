@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-
-namespace Asteroids
+﻿namespace Asteroids
 {
-    [CreateAssetMenu(fileName = "CruiserData", menuName = "Enemy/CruiserData", order = 2)]
-    public class CruiserData : EnemyData
+    public class CruiserData
     {
-        [SerializeField] private Transform _bullet;
-
-        public Transform Bullet => _bullet;
+        
     }
 }

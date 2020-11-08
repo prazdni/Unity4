@@ -1,9 +1,4 @@
-﻿namespace Asteroids
+﻿$HEADER$namespace $NAMESPACE$
 {
-    public enum EnemyType
-    {
-        None     = 0,
-        Asteroid = 1,
-        Cruiser  = 2
-    }
+  public enum $ENUM$ {$END$}
 }

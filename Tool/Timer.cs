@@ -6,11 +6,9 @@
         private float _timerMinValue;
         private float _currentTime;
 
-        public float MaxTime => _timerMaxValue;
-
         public float CurrentTime => _currentTime;
 
-        public bool IsStopped => !_isTimeStarted;
+        public bool IsTimerStarted => _isTimeStarted;
 
         private bool _isTimeStarted = false;
 

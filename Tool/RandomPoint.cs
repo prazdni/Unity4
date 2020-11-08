@@ -1,9 +1,4 @@
-﻿using UnityEngine;
-
-namespace Asteroids
+﻿$HEADER$namespace $NAMESPACE$
 {
-    public class RandomPoint
-    {
-
-    }
+  public class $CLASS$ {$END$}
 }

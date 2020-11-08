@@ -1,7 +1,7 @@
 ﻿namespace Asteroids
 {
-    public interface IEnemyFactory
+    public interface ICreatorEnemy
     {
-        IEnemy CreateHiddenEnemy(EnemyData enemyData);
+        
     }
 }

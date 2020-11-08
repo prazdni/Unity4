@@ -14,7 +14,7 @@ namespace Asteroids
         {
             _fireManager = new FireManager(bullet, barrel, force);
             _accelerationManager = new AccelerationManager(ship);
-            _rotationManager = new RotationManager(ship, Camera.main);
+            _rotationManager = new RotationManager(ship);
             _moveManager = new MoveManager(ship);
         }
 

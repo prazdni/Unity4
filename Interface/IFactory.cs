@@ -1,9 +1,4 @@
-﻿using UnityEngine;
-
-namespace Asteroids
+﻿$HEADER$namespace $NAMESPACE$
 {
-    public interface IFactory
-    {
-        Transform CreateInvisibleBullet();
-    }
+  public interface $INTERFACE$ {$END$}
 }

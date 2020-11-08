@@ -2,18 +2,20 @@
 {
     public class Health
     {
-        public float Current { get; private set; }
+        private readonly int _maxHp;
+
+        public int MAXHp => _maxHp;
+        public float CurrentHp { get; private set; }
         
-        public float Max { get; }
-        
-        public Health(float max)
+        public Health(int maxHp)
         {
-            Max = max;
+            _maxHp = maxHp;
+            CurrentHp = _maxHp;
         }
 
-        public void ChangeCurrentHealth(float hp)
+        public void ApplyDamage(float value)
         {
-            Current = hp;
+            CurrentHp -= value;
         }
     }
 }
