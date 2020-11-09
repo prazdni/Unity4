@@ -27,14 +27,14 @@ namespace Asteroids
         {
             if (_bulletsQueue.Count > 0)
             {
-                if (!_timer.IsTimerStarted && Mathf.Approximately(_timer.CurrentTime, 1.0f) )
+                if (_timer.IsStopped && Mathf.Approximately(_timer.CurrentTime, 1.0f) )
                 {
                     _timer.StartTimeCount();
                 }
 
                 _timer.TimerTick(deltaTime);
 
-                if (!_timer.IsTimerStarted)
+                if (_timer.IsStopped)
                 {
                     Object.Destroy(_bulletsQueue.Dequeue().gameObject);
                     _timer.ResetTimeCount();

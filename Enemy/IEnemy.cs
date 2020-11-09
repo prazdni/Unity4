@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Asteroids
 {
-    public interface IShip : IMove, IRotate, IAccelerate
+    public interface IEnemy : IExecute
     {
-        Transform ShipTransform { get; }
+        Transform SceneEnemy { get; }
         Action<Transform> OnAction { get; }
     }
 }

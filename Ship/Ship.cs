@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Asteroids
 {
@@ -10,8 +11,15 @@ namespace Asteroids
         public float Speed => _moveImplementation.Speed;
         public Transform ShipTransform { get; private set; }
 
+        public Action<Transform> OnAction
+        {
+            get;
+            private set;
+        }
+
         public Ship(IMove moveImplementation, IRotate rotateImplementation, Transform shipTransform)
         {
+            OnAction += OnTransformAction;
             _moveImplementation = moveImplementation;
             _rotateImplementation = rotateImplementation;
             ShipTransform = shipTransform;
@@ -41,6 +49,11 @@ namespace Asteroids
             {
                 accelerationMove.RemoveAcceleration();
             }
+        }
+
+        private void OnTransformAction(Transform actionObject)
+        {
+            Debug.Log("Interacted!");
         }
     }
 }
