@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Asteroids
 {
-    public class CollisionChecker
+    public class ShipCollisionChecker
     {
         private IShip _ship;
         private bool _isInteracted;
         
-        public CollisionChecker(IShip ship)
+        public ShipCollisionChecker(IShip ship)
         {
             _ship = ship;
             _isInteracted = false;
@@ -22,7 +22,6 @@ namespace Asteroids
             {
                 isInteracted = true;
                 _ship.OnAction.Invoke(enemy.SceneEnemy.transform);
-                enemy.OnAction.Invoke(_ship.ShipTransform);
             }
 
             return isInteracted;

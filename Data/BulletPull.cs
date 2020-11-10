@@ -4,23 +4,21 @@ using System.Linq;
 
 namespace Asteroids
 {
-    public class CruiserBulletPull
+    public class BulletPull : IPullable<Transform>
     {
-        private int _bulletCapacity;
         private List<Transform> _bullets;
         private IFactory _bulletFactory;
         
-        public CruiserBulletPull(int bulletCapacity, Transform bullet)
+        public BulletPull(Transform bullet)
         {
             _bulletFactory = new BulletFactory(bullet);
             
-            _bulletCapacity = bulletCapacity;
             _bullets = new List<Transform>();
             
             CreateBullets();
         }
 
-        public Transform GetBullet()
+        public Transform Get()
         {
             var bullet = _bullets.FirstOrDefault(b => !b.gameObject.activeSelf);
 
@@ -35,17 +33,24 @@ namespace Asteroids
             return bullet;
         }
 
+        public void Return(Transform returnObject)
+        {
+            returnObject.gameObject.SetActive(false);
+        }
+        
         private void CreateBullets()
         {
-            for (int i = 0; i < _bulletCapacity; i++)
+            var bulletsCount = _bullets.Count;
+            
+            if (bulletsCount == 0)
+            {
+                bulletsCount++;
+            }
+            
+            for (int i = 0; i < bulletsCount; i++)
             {
                 _bullets.Add(_bulletFactory.CreateInvisibleBullet());
             }
-        }
-        
-        public void ReturnBullet(Transform bullet)
-        {
-            bullet.gameObject.SetActive(false);
         }
     }
 }

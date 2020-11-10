@@ -24,7 +24,7 @@ namespace Asteroids
         {
             _shipCreator = new ShipCreator(_shipData);
             
-            _enemyManager = new EnemyManager(_shipCreator.GetShip(), _asteroidData, _cruiserData);
+            _enemyManager = new EnemyManager(_shipCreator.GetShip(),_asteroidData, _cruiserData);
 
             _inputController = new InputController(_shipCreator.GetShip(), _shipData.Bullet, _shipCreator.GetBarrel(),
                 _shipData.BulletForce);

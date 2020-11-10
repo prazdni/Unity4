@@ -9,18 +9,14 @@ namespace Manager
     {
         private IUserKeyInput _fire;
         private BulletManager _bulletManager;
-
-        private Rigidbody2D _bullet;
-        private Transform _barrel;
+        
         private float _force;
 
-        public FireManager(Rigidbody2D bullet, Transform barrel, float force)
+        public FireManager(Transform bullet, Transform barrel, float force)
         {
             _fire = new PCUserInputFire();
-            _bulletManager = new BulletManager();
-            
-            _bullet = bullet;
-            _barrel = barrel;
+            //_bulletManager = new BulletManager(bullet, barrel);
+
             _force = force;
         }
         
@@ -28,10 +24,10 @@ namespace Manager
         {
             if (_fire.IsKeyDown())
             {
-                _bulletManager.Shoot(_bullet, _barrel, _force);
+            //    _bulletManager.Shoot(_force);
             }
 
-            _bulletManager.QuantityOfBulletsCheck(deltaTime);
+            //_bulletManager.QuantityOfBulletsCheck(deltaTime);
         }
     }
 }

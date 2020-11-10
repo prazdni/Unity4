@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+
 
 namespace Asteroids
 {
-    public class EnemyPool
+    public class EnemyPool : IPullable<IEnemy>
     {
         private EnemyFactory _enemyFactory;
 
@@ -20,7 +20,7 @@ namespace Asteroids
             CreateEnemies();
         }
 
-        public IEnemy GetEnemy()
+        public IEnemy Get()
         {
             var enemy = _enemies.FirstOrDefault(e => !e.SceneEnemy.gameObject.activeSelf);
 
@@ -33,9 +33,9 @@ namespace Asteroids
             return enemy;
         }
 
-        public void ReturnEnemy(Transform enemyTransform)
+        public void Return(IEnemy returnObject)
         {
-            enemyTransform.gameObject.SetActive(false);
+            returnObject.SceneEnemy.gameObject.SetActive(false);
         }
 
         private void CreateEnemies()

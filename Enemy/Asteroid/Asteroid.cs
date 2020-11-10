@@ -5,15 +5,16 @@ namespace Asteroids
     public class Asteroid : Enemy
     {
         private IExecute _asteroidMovement;
-        private CollisionChecker _collisionChecker;
+        
         public Asteroid(Transform sceneEnemy, AsteroidData asteroidData, IShip ship) : 
-            base(sceneEnemy, asteroidData)
+            base(sceneEnemy, asteroidData, ship)
         {
-            _asteroidMovement = new AsteroidMovement(_sceneEnemy, _speed.Current);
+            _asteroidMovement = new AsteroidMovement(this, _speed.Current);
         }
 
         public override void Execute(float deltaTime)
         {
+            base.Execute(deltaTime);
             _asteroidMovement.Execute(deltaTime);
         }
     }

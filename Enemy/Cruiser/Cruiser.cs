@@ -9,14 +9,15 @@ namespace Asteroids
         private IExecute _collisionChecker;
         
         public Cruiser(Transform sceneEnemy, CruiserData cruiserData , IShip ship) : 
-            base(sceneEnemy, cruiserData)
+            base(sceneEnemy, cruiserData, ship)
         {
-            _cruiserBulletManager = new CruiserBulletManager(this, cruiserData.Bullet, ship, 10.0f);
-            _cruiserMovement = new CruiserMovement(_sceneEnemy, _speed.Current, ship);
+            _cruiserBulletManager = new CruiserBulletManager(this, cruiserData.Bullet, ship,10.0f);
+            _cruiserMovement = new CruiserMovement(this, _speed.Current, ship);
         }
 
         public override void Execute(float deltaTime)
         {
+            base.Execute(deltaTime);
             _cruiserMovement.Execute(deltaTime);
             _cruiserBulletManager.Execute(deltaTime);
         }

@@ -5,9 +5,9 @@ namespace Asteroids
 {
     public class CruiserBulletManager : IExecute
     {
-        private ReturnChecker _returnChecker;
+        private IReturnable _returnChecker;
         private IEnemy _enemy;
-        private CruiserBulletPull _bulletPull;
+        private IPullable<Transform> _bulletPull;
         private float _bulletSpeed;
 
         private List<Transform> _bullets;
@@ -18,8 +18,8 @@ namespace Asteroids
             _bulletSpeed = bulletSpeed;
             _enemy = enemy;
             _upTimer = new UpTimer(0.0f, 0.5f);
-            _returnChecker = new ReturnChecker(ship);
-            _bulletPull = new CruiserBulletPull(2, bullet);
+            _returnChecker = new TransformCollisionAndReturnChecker(ship);
+            _bulletPull = new BulletPull(bullet);
             _bullets = new List<Transform>();
         }
 
@@ -27,7 +27,7 @@ namespace Asteroids
         {
             if (_upTimer.MAXValue < _upTimer.CurrentValue)
             {
-                AddBulletToList(_bulletPull.GetBullet());
+                AddBulletToList(_bulletPull.Get());
                 
                 _upTimer.ResetTimer();
             }
@@ -36,11 +36,12 @@ namespace Asteroids
                 for (int i = 0; i < _bullets.Count; i++)
                 {
                     var bullet = _bullets[i];
-                    bullet.position += Vector3.up * (_bulletSpeed * deltaTime);
+                    
+                    MoveBullet(bullet, deltaTime);
                     
                     if (_returnChecker.ShouldReturn(bullet))
                     {
-                        _bulletPull.ReturnBullet(bullet);
+                        _bulletPull.Return(bullet);
                     }
                 }
 
@@ -56,6 +57,11 @@ namespace Asteroids
             bullet.rotation = _enemy.SceneEnemy.rotation;
                     
             _bullets.Add(bullet);
+        }
+
+        private void MoveBullet(Transform bullet, float deltaTime)
+        {
+            bullet.position += bullet.up * (_bulletSpeed * deltaTime);
         }
     }
 }
