@@ -5,41 +5,62 @@ using Object = UnityEngine.Object;
 
 namespace Asteroids
 {
-    public class BulletManager
+    public class BulletManager : IExecute
     {
-        private Queue<Rigidbody2D> _bulletsQueue;
-        private Timer _timer;
-        
-        public BulletManager()
+        private IUserKeyInput _fire;
+        private IShip _ship;
+        private Transform _barrel;
+        private IPullable<Transform> _bulletPull;
+        private IReturnable _returnChecker;
+        private List<Transform> _bullets;
+        private float _bulletSpeed;
+
+        public BulletManager(IShip ship, Transform bullet, Transform barrel, float bulletSpeed)
         {
-            _bulletsQueue = new Queue<Rigidbody2D>();
-            _timer = new Timer();
+            _ship = ship;
+            _barrel = barrel;
+            _bulletSpeed = bulletSpeed;
+            _fire = new PCUserInputFire();
+            _bulletPull = new BulletPull(bullet);
+            _returnChecker = new TransformReturnChecker();
+            _bullets = new List<Transform>();
         }
 
-        public void Shoot(Rigidbody2D bullet, Transform barrel, float force)
+        public void Execute(float deltaTime)
         {
-            var temAmmunition = Object.Instantiate(bullet, barrel.position, barrel.rotation);
-            temAmmunition.AddForce(barrel.up * force);
-            _bulletsQueue.Enqueue(temAmmunition);
-        }
-
-        public void QuantityOfBulletsCheck(float deltaTime)
-        {
-            if (_bulletsQueue.Count > 0)
+            if (_fire.IsKeyDown())
             {
-                if (_timer.IsStopped && Mathf.Approximately(_timer.CurrentTime, 1.0f) )
-                {
-                    _timer.StartTimeCount();
-                }
-
-                _timer.TimerTick(deltaTime);
-
-                if (_timer.IsStopped)
-                {
-                    Object.Destroy(_bulletsQueue.Dequeue().gameObject);
-                    _timer.ResetTimeCount();
-                }
+                AddBulletToList(_bulletPull.Get());
             }
+            else
+            {
+                for (int i = 0; i < _bullets.Count; i++)
+                {
+                    var bullet = _bullets[i];
+                    
+                    MoveBullet(bullet, deltaTime);
+                    
+                    if (_returnChecker.ShouldReturn(bullet))
+                    {
+                        _bulletPull.Return(bullet);
+                    }
+                }
+
+                _bullets.RemoveAll(b => !b.gameObject.activeSelf);
+            }
+        }
+        
+        private void MoveBullet(Transform bullet, float deltaTime)
+        {
+            bullet.position += bullet.up * (_bulletSpeed * deltaTime);
+        }
+        
+        private void AddBulletToList(Transform bullet)
+        {
+            bullet.transform.position = _barrel.position;
+            bullet.rotation = _barrel.rotation;
+                    
+            _bullets.Add(bullet);
         }
     }
 }

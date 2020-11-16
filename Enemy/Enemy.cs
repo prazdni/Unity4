@@ -9,24 +9,28 @@ namespace Asteroids
         public static IEnemyFactory Factory;
         private Transform _rootPool;
         protected Speed _speed;
+        private IShip _ship;
+        private ShipCollisionChecker _shipCollisionChecker;
 
         public Transform SceneEnemy { get; }
         public Action<Transform> OnAction { get; }
-
-        protected Transform _sceneEnemy;
-
-        public Enemy(Transform sceneEnemy, EnemyData enemyData)
+        
+        public Enemy(Transform sceneEnemy, EnemyData enemyData, IShip ship)
         {
-            SceneEnemy = sceneEnemy;
-
-            _sceneEnemy = sceneEnemy;
+            _ship = ship;
             
-            _speed = new Speed(10.0f);
+            SceneEnemy = sceneEnemy;
+            
+            _speed = new Speed(enemyData.EnemySpeed);
+            
+            _shipCollisionChecker = new ShipCollisionChecker(ship);
 
             OnAction += OnTransformAction;
         }
 
-        public abstract void Execute(float deltaTime);
+        public virtual void Execute(float deltaTime)
+        {
+        }
 
         private void OnTransformAction(Transform transform)
         {

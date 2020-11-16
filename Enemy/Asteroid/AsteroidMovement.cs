@@ -4,12 +4,12 @@ namespace Asteroids
 {
     public class AsteroidMovement : IExecute
     {
-        private Transform _sceneEnemy;
+        private IEnemy _enemy;
         private Vector3 _moveVector;
         
-        public AsteroidMovement(Transform sceneEnemy, float currentSpeed)
+        public AsteroidMovement(IEnemy enemy, float currentSpeed)
         {
-            _sceneEnemy = sceneEnemy;
+            _enemy = enemy;
             _moveVector = (new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f).normalized) *
                           currentSpeed;
         }
@@ -18,7 +18,7 @@ namespace Asteroids
         {
             var moveVector = _moveVector * deltaTime;
 
-            _sceneEnemy.transform.position += moveVector;
+            _enemy.SceneEnemy.position += moveVector;
         }
     }
 }
