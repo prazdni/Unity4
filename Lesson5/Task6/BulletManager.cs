@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lesson5.Decorator;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -8,46 +9,47 @@ namespace Asteroids
     public class BulletManager : IExecute
     {
         private IUserKeyInput _fire;
-        private IShip _ship;
         private Transform _barrel;
         private IPullable<Transform> _bulletPull;
         private IReturnable _returnChecker;
         private List<Transform> _bullets;
         private float _bulletSpeed;
+        private ShipWeaponLocker _weaponLocker;
 
-        public BulletManager(IShip ship, Transform bullet, Transform barrel, float bulletSpeed)
+        public BulletManager(Transform bullet, Transform barrel, float bulletSpeed, ShipWeaponLocker weaponLocker)
         {
-            _ship = ship;
             _barrel = barrel;
             _bulletSpeed = bulletSpeed;
             _fire = new PCUserInputFire();
             _bulletPull = new BulletPull(bullet);
             _returnChecker = new TransformReturnChecker();
             _bullets = new List<Transform>();
+            _weaponLocker = weaponLocker;
         }
 
         public void Execute(float deltaTime)
         {
-            if (_fire.IsKeyDown())
+            if (!_weaponLocker.IsLocked)
             {
-                AddBulletToList(_bulletPull.Get());
-            }
-            else
-            {
-                for (int i = 0; i < _bullets.Count; i++)
+                if (_fire.IsKeyDown())
                 {
-                    var bullet = _bullets[i];
-                    
-                    MoveBullet(bullet, deltaTime);
-                    
-                    if (_returnChecker.ShouldReturn(bullet))
-                    {
-                        _bulletPull.Return(bullet);
-                    }
+                    AddBulletToList(_bulletPull.Get());
                 }
-
-                _bullets.RemoveAll(b => !b.gameObject.activeSelf);
             }
+
+            for (int i = 0; i < _bullets.Count; i++)
+            {
+                var bullet = _bullets[i];
+                    
+                MoveBullet(bullet, deltaTime);
+                    
+                if (_returnChecker.ShouldReturn(bullet))
+                {
+                    _bulletPull.Return(bullet);
+                }
+            }
+
+            _bullets.RemoveAll(b => !b.gameObject.activeSelf);
         }
         
         private void MoveBullet(Transform bullet, float deltaTime)

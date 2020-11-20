@@ -25,9 +25,9 @@ namespace Asteroids
             ShipTransform = shipTransform;
         }
         
-        public void Move(float horizontal, float vectical, float deltaTime)
+        public void Move(float horizontal, float vertical, float deltaTime)
         {
-            _moveImplementation.Move(horizontal, vectical, deltaTime);
+            _moveImplementation.Move(horizontal, vertical, deltaTime);
         }
         
         public void Rotation(Vector3 direction)
@@ -54,6 +54,11 @@ namespace Asteroids
         private void OnTransformAction(Transform actionObject)
         {
             Debug.Log("Interacted!");
+        }
+
+        public void SubscribeOnAction(Action<Transform> action)
+        {
+            OnAction += action;
         }
     }
 }

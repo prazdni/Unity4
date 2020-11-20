@@ -49,7 +49,7 @@ namespace Asteroids
             
             for (int i = 0; i < bulletsCount; i++)
             {
-                _bullets.Add(_bulletFactory.CreateInvisibleBullet());
+                _bullets.Add(_bulletFactory.CreateInvisibleItem());
             }
         }
     }

@@ -15,7 +15,9 @@ namespace Asteroids
             var moveTransform = new AccelerationMove(_sceneShipTransform, shipData.ShipSpeed, shipData.ShipAcceleration);
             var rotation = new RotateShip(_sceneShipTransform);
             
-            _ship = new Ship(moveTransform, rotation, _sceneShipTransform);
+            //_ship = new Ship(moveTransform, rotation, _sceneShipTransform);
+            _ship = new Ship(new MouseMove(_sceneShipTransform, shipData.ShipSpeed),
+                new AbsenceRotation(_sceneShipTransform), _sceneShipTransform);
             
             _sceneBarrel = Object.Instantiate(shipData.Barrel, _sceneShipTransform);
         }

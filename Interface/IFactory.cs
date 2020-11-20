@@ -4,6 +4,6 @@ namespace Asteroids
 {
     public interface IFactory
     {
-        Transform CreateInvisibleBullet();
+        Transform CreateInvisibleItem();
     }
 }

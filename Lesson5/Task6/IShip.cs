@@ -7,5 +7,6 @@ namespace Asteroids
     {
         Transform ShipTransform { get; }
         Action<Transform> OnAction { get; }
+        void SubscribeOnAction(Action<Transform> action);
     }
 }

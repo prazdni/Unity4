@@ -11,7 +11,7 @@ namespace Asteroids
             _bulletTransform = bullet;
         }
 
-        public Transform CreateInvisibleBullet()
+        public Transform CreateInvisibleItem()
         {
             var bullet = Object.Instantiate(_bulletTransform);
             bullet.gameObject.SetActive(false);
