@@ -6,4 +6,4 @@
         Mag      = 1,
         Infantry = 2
     }
-}
+} 

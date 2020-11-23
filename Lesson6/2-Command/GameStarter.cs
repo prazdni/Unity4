@@ -18,6 +18,7 @@ namespace Asteroids
 
         private EnemyManager _enemyManager;
         private InputController _inputController;
+        private UIManager _uiManager;
         private Ship _ship;
 
         private void Start()
@@ -28,12 +29,15 @@ namespace Asteroids
 
             _inputController = new InputController(_shipCreator.GetShip(), _shipData.Bullet, _shipCreator.GetBarrel(),
                 _shipData.BulletForce);
+            
+            _uiManager = new UIManager();
         }
 
         private void Update()
         {
-            _inputController.Execute(Time.deltaTime);
-            _enemyManager.Execute(Time.deltaTime);
+            //_inputController.Execute(Time.deltaTime);
+            //_enemyManager.Execute(Time.deltaTime);
+            _uiManager.Execute(Time.deltaTime);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity4.Lesson6;
 using UnityEngine;
 
 namespace Asteroids
@@ -6,25 +7,14 @@ namespace Asteroids
     public class ShipCollisionChecker
     {
         private IShip _ship;
+        private ModifierManager _shipModifierManager;
         private bool _isInteracted;
         
         public ShipCollisionChecker(IShip ship)
         {
             _ship = ship;
+            _shipModifierManager = new ModifierManager(ship);
             _isInteracted = false;
-        }
-
-        public bool IsCollision(IEnemy enemy)
-        {
-            var isInteracted = false;
-            
-            if ((_ship.ShipTransform.position - enemy.SceneEnemy.transform.position).sqrMagnitude < Constants.CollisionDistance)
-            {
-                isInteracted = true;
-                _ship.OnAction.Invoke(enemy.SceneEnemy.transform);
-            }
-
-            return isInteracted;
         }
 
         public bool IsCollision(Transform sceneObject)
@@ -35,6 +25,7 @@ namespace Asteroids
             {
                 isInteracted = true;
                 _ship.OnAction.Invoke(sceneObject.transform);
+                _shipModifierManager.ModifyShip();
             }
 
             return isInteracted;

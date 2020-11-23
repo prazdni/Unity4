@@ -7,7 +7,7 @@ namespace Asteroids
         private readonly Transform _transform;
         private Vector3 _move;
         
-        public float Speed { get; protected set; }
+        public float Speed { get; set; }
 
         protected MoveTransform()
         {

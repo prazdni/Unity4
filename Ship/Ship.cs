@@ -7,9 +7,33 @@ namespace Asteroids
     {
         private readonly IMove _moveImplementation;
         private readonly IRotate _rotateImplementation;
+        private Health _health;
 
-        public float Speed => _moveImplementation.Speed;
-        public Transform ShipTransform { get; private set; }
+        public float Speed
+        {
+            get => _moveImplementation.Speed;
+            set
+            {
+                if (value > 0)
+                {
+                    _moveImplementation.Speed = value;
+                }
+            }
+        }
+        
+        public float Health
+        {
+            get => _health.Current;
+            set
+            {
+                if (_health.Current - value > 0)
+                {
+                    _health.ChangeCurrentHealth(value);
+                }
+            }
+        }
+        
+        public Transform ShipTransform { get; }
 
         public Action<Transform> OnAction
         {
@@ -19,6 +43,7 @@ namespace Asteroids
 
         public Ship(IMove moveImplementation, IRotate rotateImplementation, Transform shipTransform)
         {
+            _health = new Health(10.0f);
             OnAction += OnTransformAction;
             _moveImplementation = moveImplementation;
             _rotateImplementation = rotateImplementation;
