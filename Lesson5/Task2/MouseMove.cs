@@ -4,7 +4,7 @@ namespace Asteroids
 {
     public class MouseMove : IMove
     {
-        public float Speed { get; }
+        public float Speed { get; set; }
 
         private Camera _camera;
         private Transform _ship;

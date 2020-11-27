@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Unity4.Lesson6;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Asteroids
@@ -10,6 +12,7 @@ namespace Asteroids
         private IPullable<IEnemy> _enemyPool;
         private TransformCollisionAndReturnChecker _transformCollisionAndReturnChecker;
         private PositionSetter _positionSetter;
+        private MessageBroker _messageBroker;
         
         public EnemyManager(IShip ship, params EnemyData[] enemies)
         {
@@ -18,6 +21,7 @@ namespace Asteroids
             _enemies = new List<IEnemy>();
             _transformCollisionAndReturnChecker = new TransformCollisionAndReturnChecker(ship);
             _positionSetter = new PositionSetter(ship);
+            _messageBroker = new MessageBroker();
             
             AddEnemies(enemies.Length);
         }
@@ -32,6 +36,7 @@ namespace Asteroids
                     {
                         _enemies[i].OnAction.Invoke(_ship.ShipTransform);
                         _enemyPool.Return(_enemies[i]);
+                        _messageBroker.OnDestroyObject(_enemies[i].SceneEnemy);
                     }
                     else
                     {

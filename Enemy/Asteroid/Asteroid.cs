@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Asteroids
 {
@@ -6,8 +7,8 @@ namespace Asteroids
     {
         private IExecute _asteroidMovement;
         
-        public Asteroid(Transform sceneEnemy, AsteroidData asteroidData, IShip ship) : 
-            base(sceneEnemy, asteroidData, ship)
+        public Asteroid(Transform sceneEnemy, AsteroidData asteroidData, IShip ship, List<EnemyAbility> abilities) : 
+            base(sceneEnemy, asteroidData, ship, abilities)
         {
             _asteroidMovement = new AsteroidMovement(this, _speed.Current);
         }

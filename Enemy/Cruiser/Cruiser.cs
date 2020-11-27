@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Asteroids
 {
@@ -8,8 +9,8 @@ namespace Asteroids
         private CruiserBulletManager _cruiserBulletManager;
         private IExecute _collisionChecker;
         
-        public Cruiser(Transform sceneEnemy, CruiserData cruiserData , IShip ship) : 
-            base(sceneEnemy, cruiserData, ship)
+        public Cruiser(Transform sceneEnemy, CruiserData cruiserData , IShip ship, List<EnemyAbility> abilities) : 
+            base(sceneEnemy, cruiserData, ship, abilities)
         {
             _cruiserBulletManager = new CruiserBulletManager(this, cruiserData.Bullet, ship,10.0f);
             _cruiserMovement = new CruiserMovement(this, _speed.Current, ship);

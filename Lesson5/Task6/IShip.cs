@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Asteroids
 {
-    public interface IShip : IMove, IRotate, IAccelerate
+    public interface IShip : IMove, IRotate, IAccelerate, IHealth
     {
         Transform ShipTransform { get; }
         Action<Transform> OnAction { get; }
