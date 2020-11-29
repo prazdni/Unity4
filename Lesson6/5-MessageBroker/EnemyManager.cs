@@ -10,7 +10,8 @@ namespace Asteroids
         private IShip _ship;
         private List<IEnemy> _enemies;
         private IPullable<IEnemy> _enemyPool;
-        private TransformCollisionAndReturnChecker _transformCollisionAndReturnChecker;
+        private TransformReturnChecker _transformReturnChecker;
+        private ShipCollisionChecker _shipCollisionChecker;
         private PositionSetter _positionSetter;
         private MessageBroker _messageBroker;
         
@@ -19,7 +20,8 @@ namespace Asteroids
             _ship = ship;
             _enemyPool = new EnemyPool(ship, enemies);
             _enemies = new List<IEnemy>();
-            _transformCollisionAndReturnChecker = new TransformCollisionAndReturnChecker(ship);
+            _transformReturnChecker = new TransformReturnChecker();
+            _shipCollisionChecker = new ShipCollisionChecker(ship);
             _positionSetter = new PositionSetter(ship);
             _messageBroker = new MessageBroker();
             
@@ -32,11 +34,16 @@ namespace Asteroids
             {
                 if (_enemies[i].SceneEnemy.gameObject.activeSelf)
                 {
-                    if (_transformCollisionAndReturnChecker.ShouldReturn(_enemies[i].SceneEnemy))
+
+                    if (_transformReturnChecker.ShouldReturn(_enemies[i].SceneEnemy))
                     {
-                        _enemies[i].OnAction.Invoke(_ship.ShipTransform);
-                        _enemyPool.Return(_enemies[i]);
-                        _messageBroker.OnDestroyObject(_enemies[i].SceneEnemy);
+                        _enemies[i].OnAction(new EnemyEventInfo(_ship.ShipTransform, false));
+                        OnReturnToPool(_enemies[i]);
+                    }
+                    else if (_shipCollisionChecker.IsCollision(_enemies[i].SceneEnemy))
+                    {
+                        _enemies[i].OnAction(new EnemyEventInfo(_ship.ShipTransform, true));
+                        OnReturnToPool(_enemies[i]);
                     }
                     else
                     {
@@ -55,6 +62,12 @@ namespace Asteroids
                 _positionSetter.SetPosition(enemy.SceneEnemy);
                 _enemies.Add(enemy);
             }
+        }
+
+        private void OnReturnToPool(IEnemy enemy)
+        {
+            _enemyPool.Return(enemy);
+            _messageBroker.OnDestroyObject(enemy.SceneEnemy);
         }
     }
 }

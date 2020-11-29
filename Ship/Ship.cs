@@ -35,19 +35,17 @@ namespace Asteroids
         
         public Transform ShipTransform { get; }
 
-        public Action<Transform> OnAction
-        {
-            get;
-            private set;
-        }
+        public event Action<Transform> ShipAction = delegate(Transform transform) {  };
+        
 
         public Ship(IMove moveImplementation, IRotate rotateImplementation, Transform shipTransform)
         {
             _health = new Health(10.0f);
-            OnAction += OnTransformAction;
             _moveImplementation = moveImplementation;
             _rotateImplementation = rotateImplementation;
             ShipTransform = shipTransform;
+            
+            ShipAction += OnAction;
         }
         
         public void Move(float horizontal, float vertical, float deltaTime)
@@ -76,14 +74,9 @@ namespace Asteroids
             }
         }
 
-        private void OnTransformAction(Transform actionObject)
+        public void OnAction(Transform transform)
         {
-            Debug.Log("Interacted!");
-        }
-
-        public void SubscribeOnAction(Action<Transform> action)
-        {
-            OnAction += action;
+            ShipAction.Invoke(transform);
         }
     }
 }

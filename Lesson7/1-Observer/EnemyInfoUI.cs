@@ -1,7 +1,9 @@
-﻿namespace Asteroids
+﻿using UnityEngine;
+
+namespace Asteroids
 {
-    public class ShowInfo
+    public abstract class EnemyInfoUI : MonoBehaviour
     {
-        
+        public abstract void ShowInfo(EnemyEventInfo info);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Asteroids
 {
-    public class EnemiesDestroyedScore : ShowEnemyInfo
+    public class EnemiesDestroyedScore : EnemyInfoUI
     {
         private TMP_Text _score;
         
