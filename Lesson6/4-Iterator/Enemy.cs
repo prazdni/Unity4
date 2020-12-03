@@ -10,10 +10,8 @@ namespace Asteroids
         private Transform _rootPool;
         protected Speed _speed;
         private IShip _ship;
-        private ShipCollisionChecker _shipCollisionChecker;
-
         public Transform SceneEnemy { get; }
-        public Action<Transform> OnAction { get; }
+        public event Action<EnemyEventInfo> EnemyAction = delegate(EnemyEventInfo info) {  };
 
         public EnemyAbility this[AbilityState state]
         {
@@ -43,20 +41,18 @@ namespace Asteroids
             
             _speed = new Speed(enemyData.EnemySpeed);
             
-            _shipCollisionChecker = new ShipCollisionChecker(ship);
-
             _abilities = abilities;
 
-            OnAction += OnTransformAction;
+            EnemyAction += OnAction;
         }
 
         public virtual void Execute(float deltaTime)
         {
         }
 
-        private void OnTransformAction(Transform transform)
+        public void OnAction(EnemyEventInfo info)
         {
-            Debug.Log("Enemy Interacted!");
+            EnemyAction.Invoke(info);
         }
 
         public IEnumerable<EnemyAbility> GetAbility()

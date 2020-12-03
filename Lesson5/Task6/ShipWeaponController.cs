@@ -15,8 +15,7 @@ namespace Asteroids
             _upTimer = new UpTimer(0.0f, 3.0f);
             _weaponLocker = new ShipWeaponLocker(false);
             _bulletManager = new BulletManager(bullet, barrel, bulletSpeed, _weaponLocker);
-            ship.SubscribeOnAction(ShouldContinueShooting);
-            
+            ship.ShipAction += ShouldContinueShooting;
         }
 
         public void Execute(float deltaTime)

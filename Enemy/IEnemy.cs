@@ -6,6 +6,8 @@ namespace Asteroids
     public interface IEnemy : IExecute
     {
         Transform SceneEnemy { get; }
-        Action<Transform> OnAction { get; }
+        event Action<EnemyEventInfo> EnemyAction;
+
+        void OnAction(EnemyEventInfo info);
     }
 }

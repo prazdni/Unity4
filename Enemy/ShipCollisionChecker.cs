@@ -24,7 +24,7 @@ namespace Asteroids
             if ((_ship.ShipTransform.position - sceneObject.position).sqrMagnitude < Constants.CollisionDistance)
             {
                 isInteracted = true;
-                _ship.OnAction.Invoke(sceneObject.transform);
+                _ship.OnAction(sceneObject.transform);
                 _shipModifierManager.ModifyShip();
             }
 
