@@ -2,9 +2,9 @@
 
 namespace Unity4.Lesson8
 {
-    public interface IPullable
+    public interface IPullable<T>
     {
-        Transform Get();
-        void Return(Transform transform);
+        T Get();
+        void Return(T transform);
     }
 }

@@ -19,7 +19,7 @@ namespace Unity4.Lesson8
         public ITakeObject TakeObject { get; }
 
         public CharacterModel(Transform transform, Transform throwGrenadePosition, Transform setMinePosition,
-            Health health, Speed speed, float takeRange)
+            IHealth health, ISpeed speed, float takeRange)
         {
             Transform = transform;
             ThrowGrenadePosition = throwGrenadePosition;
