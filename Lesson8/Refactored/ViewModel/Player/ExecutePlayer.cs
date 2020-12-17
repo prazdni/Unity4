@@ -7,12 +7,12 @@
         private IExecute _mine;
         private ITakeExecute _takeObject;
         
-        public ExecuteViewModel(CharacterModel character, GrenadeModel grenade, MineModel mine)
+        public ExecuteViewModel(CharacterModel character, IPull grenades, IMinePull mines)
         {
             _characterMovement = new MovementInputViewModel(character);
             _takeObject = new TakeExecute(character, character.ThrowGrenadePosition);
-            _grenade = new GrenadeViewModel(grenade, _takeObject.TakeObject, character.ThrowGrenadePosition);
-            _mine = new MineViewModel(mine, character.SetMinePosition);
+            _grenade = new GrenadeExecute(grenades, _takeObject.TakeObject, character.ThrowGrenadePosition);
+            _mine = new MineExecute(mines, character.SetMinePosition);
         }
 
         public void Execute(float deltaTime)

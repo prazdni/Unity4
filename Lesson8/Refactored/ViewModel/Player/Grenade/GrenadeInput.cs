@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class GrenadeInputViewModel : IExecute
+    public class GrenadeInput : IExecute
     {
         private GrenadeModel _grenade;
         private IUserKeyInput _grenadeInput;
         private IGrenadeThrower _grenadeThrower;
        
         
-        public GrenadeInputViewModel(IGrenadeThrower grenadeThrower)
+        public GrenadeInput(IGrenadeThrower grenadeThrower)
         {
             _grenadeThrower = grenadeThrower;
             _grenadeInput = new PCUserInputGrenade();

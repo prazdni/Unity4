@@ -2,13 +2,13 @@
 
 namespace Unity4.Lesson8
 {
-    public class MineInputViewModel : IExecute
+    public class MineInput : IExecute
     {
-        private IMineSetterViewModel _mineSetter;
+        private IMineSetter _mineSetter;
         private IUserKeyInput _mineInput;
 
 
-        public MineInputViewModel(IMineSetterViewModel mineSetter)
+        public MineInput(IMineSetter mineSetter)
         {
             _mineSetter = mineSetter;
             _mineInput = new PCUserInputMine();

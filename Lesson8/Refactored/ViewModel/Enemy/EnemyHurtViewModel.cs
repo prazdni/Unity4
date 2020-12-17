@@ -1,5 +1,4 @@
 ﻿using System;
-using Unity4.Lesson8.Interface;
 
 namespace Unity4.Lesson8
 {

@@ -2,15 +2,15 @@
 
 namespace Unity4.Lesson8
 {
-    public class GrenadeViewModel : IExecute
+    public class GrenadeExecute : IExecute
     {
         private IGrenadeThrower _grenadeThrower;
         private IExecute _grenadeInput;
         
-        public GrenadeViewModel(GrenadeModel grenade, ITakeObject takeObject, Transform throwPoint)
+        public GrenadeExecute(IPull grenades, ITakeObject takeObject, Transform throwPoint)
         {
-            _grenadeThrower = new GrenadeThrowViewModel(grenade, takeObject, throwPoint);
-            _grenadeInput = new GrenadeInputViewModel(_grenadeThrower);
+            _grenadeThrower = new GrenadeThrow(grenades, takeObject, throwPoint);
+            _grenadeInput = new GrenadeInput(_grenadeThrower);
         }
         
         public void Execute(float deltaTime)
