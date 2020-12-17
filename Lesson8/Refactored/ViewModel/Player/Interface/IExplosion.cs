@@ -2,7 +2,7 @@
 
 namespace Unity4.Lesson8
 {
-    public interface IExplosionViewModel
+    public interface IExplosion
     {
         void Explode(Vector3 position);
     }

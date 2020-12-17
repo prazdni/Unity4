@@ -8,7 +8,6 @@ namespace Unity4.Lesson8
         public float ExplosionForce { get; }
         public float ExplosionRadius { get; }
         public float Damage { get; }
-        public int Quantity { get; }
 
         public MineModel(Transform transform, float explosionForce, float explosionRadius, float damage)
         {

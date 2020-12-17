@@ -1,35 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class ExplosionViewModel : IExplosionViewModel
+    public class Explosion : IExplosion
     {
-        private List<Vector3> _allWayPoints;
         private float _explosionForce;
         private float _explosionRadius;
-        private float _damage;
 
-        public ExplosionViewModel(float explosionForce, float explosionRadius, float damage)
+        public Explosion(float explosionForce, float explosionRadius)
         {
             _explosionForce = explosionForce;
             _explosionRadius = explosionRadius;
-            _damage = damage;
         }
 
         public void Explode(Vector3 position)
         {
-            Collider[] colliders = Physics.OverlapSphere(position, _explosionRadius);
+            Collider[] colliders = new Collider[10];
+            Physics.OverlapSphereNonAlloc(position, _explosionRadius, colliders);
 
             foreach (var coll in colliders)
             {
                 if (coll.GetComponent<Rigidbody>() != null)
                 {
-                    if (coll.gameObject.CompareTag("Enemy"))
-                    {
-                        //coll.gameObject.GetComponent<MyEnemy>().Hurt(_damage);
-                    }
-
                     coll.GetComponent<Rigidbody>().AddExplosionForce(_explosionForce,
                         position, _explosionRadius);
                 }

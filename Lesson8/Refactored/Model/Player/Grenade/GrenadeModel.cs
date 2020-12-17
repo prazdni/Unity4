@@ -10,7 +10,8 @@ namespace Unity4.Lesson8
         public float ExplosionRadius { get; }
         public float Damage { get; }
 
-        public GrenadeModel(Transform transform, float throwForce, float explosionForce, float explosionRadius, float damage)
+        public GrenadeModel(Transform transform, float throwForce, float explosionForce, float explosionRadius,
+            float damage)
         {
             Transform = transform;
             ThrowForce = throwForce;

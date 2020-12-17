@@ -10,6 +10,7 @@ namespace Unity4.Lesson8
         [SerializeField] private float _explosionForce;
         [SerializeField] private float _explosionRadius;
         [SerializeField] private float _damage;
+        [SerializeField] private int _quantity;
 
         public Transform Prefab => _prefab;
 
@@ -20,5 +21,7 @@ namespace Unity4.Lesson8
         public float ExplosionRadius => _explosionRadius;
         
         public float Damage => _damage;
+
+        public int Quantity => _quantity;
     }
 }
