@@ -7,7 +7,7 @@ namespace Unity4.Lesson8
     {
         public Transform Transform { get; }
         
-        public Health Health { get; }
+        public HealthModel HealthModel { get; }
 
         public List<Vector3> Waypoints { get; }
         
@@ -15,11 +15,11 @@ namespace Unity4.Lesson8
         
         public float Damage { get; set; }
 
-        public SimpleEnemyModel(Transform transform, Health health, List<Vector3> waypoints, float speed,
+        public SimpleEnemyModel(Transform transform, HealthModel healthModel, List<Vector3> waypoints, float speed,
             float damage)
         {
             Transform = transform;
-            Health = health;
+            HealthModel = healthModel;
             Waypoints = waypoints;
             Speed = speed;
             Damage = damage;

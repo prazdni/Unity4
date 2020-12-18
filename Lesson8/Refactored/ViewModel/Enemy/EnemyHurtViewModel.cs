@@ -1,21 +1,24 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class EnemyHurtViewModel : IEnemyHurtViewModel
+    public class EnemyDamageViewModel : IEnemyDamageViewModel
     {
-        public event Action<float> OnEnemyHurt = f => { };
-        private IHealth _enemyHealth;
+        public Transform Transform { get; }
+        public event Action<float> OnEnemyDamage = f => { };
         
-        public EnemyHurtViewModel(IHealth enemyHealth)
+        private ISimpleEnemyModel _enemyModel;
+        
+        public EnemyDamageViewModel(ISimpleEnemyModel enemyModel)
         {
-            _enemyHealth = enemyHealth;
-            OnEnemyHurt += Hurt;
+            _enemyModel = enemyModel;
         }
 
-        private void Hurt(float damage)
+        public void DamageEnemy(float damage)
         {
-            _enemyHealth.CurrentHealth -= damage;
+            _enemyModel.HealthModel.CurrentHealth -= damage;
+            OnEnemyDamage.Invoke(_enemyModel.HealthModel.CurrentHealth);
         }
     }
 }
