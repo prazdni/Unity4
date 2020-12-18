@@ -10,9 +10,9 @@ namespace Unity4.Lesson8
         
         Transform SetMinePosition { get; }
 
-        IHealth Health { get; }
+        IHealthModel HealthModel { get; }
         
-        ISpeed Speed { get; }
+        ISpeedModel SpeedModel { get; }
         
         float TakeRange { get; }
         

@@ -20,10 +20,10 @@ namespace Unity4.Lesson8
                 case EffectType.None:
                     break;
                 case EffectType.Speed:
-                    _player.Character.Speed.MoveSpeed += bonus.Effect;
+                    _player.Character.SpeedModel.MoveSpeed += bonus.Effect;
                     break;
                 case EffectType.Health:
-                    _player.Character.Health.CurrentHealth += bonus.Effect;
+                    _player.Character.HealthModel.CurrentHealth += bonus.Effect;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -37,10 +37,10 @@ namespace Unity4.Lesson8
                 case EffectType.None:
                     break;
                 case EffectType.Speed:
-                    _player.Character.Speed.MoveSpeed += effect;
+                    _player.Character.SpeedModel.MoveSpeed += effect;
                     break;
                 case EffectType.Health:
-                    _player.Character.Health.CurrentHealth += effect;
+                    _player.Character.HealthModel.CurrentHealth += effect;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -50,8 +50,8 @@ namespace Unity4.Lesson8
 
         public void ReturnToDefault()
         {
-            _player.Character.Speed.MoveSpeed = _character.Speed.MoveSpeed;
-            _player.Character.Speed.RotationSpeed = _character.Speed.RotationSpeed;
+            _player.Character.SpeedModel.MoveSpeed = _character.SpeedModel.MoveSpeed;
+            _player.Character.SpeedModel.RotationSpeed = _character.SpeedModel.RotationSpeed;
         }
     }
 }

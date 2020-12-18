@@ -10,7 +10,7 @@ namespace Unity4.Lesson8
         public RotationViewModel(CharacterModel character)
         {
             _character = character;
-            _rotationSpeed = character.Speed.RotationSpeed;
+            _rotationSpeed = character.SpeedModel.RotationSpeed;
         }
         
         public void Rotate(Vector3 direction, float deltaTime)

@@ -10,22 +10,22 @@ namespace Unity4.Lesson8
         
         public Transform SetMinePosition { get; }
 
-        public IHealth Health { get; }
+        public IHealthModel HealthModel { get; }
         
-        public ISpeed Speed { get; }
+        public ISpeedModel SpeedModel { get; }
         
         public float TakeRange { get; }
         
         public ITakeObject TakeObject { get; }
 
         public CharacterModel(Transform transform, Transform throwGrenadePosition, Transform setMinePosition,
-            IHealth health, ISpeed speed, float takeRange)
+            IHealthModel healthModel, ISpeedModel speedModel, float takeRange)
         {
             Transform = transform;
             ThrowGrenadePosition = throwGrenadePosition;
             SetMinePosition = setMinePosition;
-            Health = health;
-            Speed = speed;
+            HealthModel = healthModel;
+            SpeedModel = speedModel;
             TakeRange = takeRange;
             TakeObject = new TakeObject(throwGrenadePosition, takeRange);
         }

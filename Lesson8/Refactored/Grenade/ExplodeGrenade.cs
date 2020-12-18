@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class Explode : IExplode<IGrenadeModel>
+    public class ExplodeGrenade : IExplode<IGrenadeModel>
     {
         private UpTimer _timer;
         public event Action<IGrenadeModel> IsExploded = b => { };
@@ -14,16 +14,17 @@ namespace Unity4.Lesson8
         private IGrenadeModel _grenade;
         private IExplosion _explosion;
 
-        public Explode(IPull<IEnemyHurtViewModel> enemies)
+        public ExplodeGrenade(IPull<IEnemyHurtViewModel> enemies)
         {
             _enemies = enemies;
+            _explosion = new Explosion();
             _timer = new UpTimer();
         }
         
          public void SetExplosionObject(IGrenadeModel grenade, float maxExplosionTime)
         {
             _grenade = grenade;
-            _explosion = new Explosion(grenade.ExplosionForce, grenade.ExplosionForce);
+            _explosion.SetExplosionParameters(grenade.ExplosionForce, grenade.ExplosionForce);
             _timer.ResetTimerWithNewMaxValue(maxExplosionTime);
         }
         
@@ -33,12 +34,12 @@ namespace Unity4.Lesson8
             
             if (Mathf.Approximately(_timer.CurrentValue, _timer.MAXValue))
             {
-                ApplyEnemyDamage();
+                ApplyDamage();
                 IsExploded.Invoke(_grenade);
             }
         }
 
-        private void ApplyEnemyDamage()
+        private void ApplyDamage()
         {
             _explosion.Explode(_grenade.Transform.position);
 

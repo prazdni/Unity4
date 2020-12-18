@@ -6,15 +6,15 @@ namespace Unity4.Lesson8
     {
         private IPlayerModel _player;
         private ICharacterModel _character;
-        private IPull _pull;
-        private IMinePull _minePull;
+        private IPull<IGrenadeModel> _pull;
+        private IPull<IMineModel> _minePull;
         
         public PlayerFactory(CharacterConfiguration character, GrenadeConfiguration grenade, MineConfiguration mine)
         {
             var sceneCharacter = Object.Instantiate(character.Prefab);
             _character =
                 new CharacterModel(sceneCharacter, character.ThrowGrenadePosition, character.SetMinePosition,
-                    character.Health, character.Speed, character.TakeRange);
+                    character.HealthModel, character.SpeedModel, character.TakeRange);
 
             _pull = new GrenadePull(grenade);
             
@@ -28,7 +28,7 @@ namespace Unity4.Lesson8
             var sceneCharacter = Object.Instantiate(character.Prefab, scenePoint.position, scenePoint.rotation);
             _character =
                 new CharacterModel(sceneCharacter, character.ThrowGrenadePosition, character.SetMinePosition,
-                    character.Health, character.Speed, character.TakeRange);
+                    character.HealthModel, character.SpeedModel, character.TakeRange);
             
             return new PlayerModel(_character, _pull, _minePull);
         }

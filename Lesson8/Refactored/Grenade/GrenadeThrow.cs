@@ -8,13 +8,12 @@ namespace Unity4.Lesson8
     public class GrenadeThrow : IGrenadeThrower
     {
         private Transform _throwPoint;
-        private IGrenadeModel _grenade;
         private IPull<IGrenadeModel> _grenades;
         private bool _isGrenadeThrown;
         private ITakeObject _takeObject;
-        private IGrenadeExplode _grenadeExplode;
+        private IExplode<IGrenadeModel> _explode;
 
-        public GrenadeThrow(List<IEnemyHurtViewModel> enemies, IPull<IGrenadeModel> grenades, ITakeObject takeObject,
+        public GrenadeThrow(IPull<IEnemyHurtViewModel> enemies, IPull<IGrenadeModel> grenades, ITakeObject takeObject,
             Transform throwPoint)
         {
             _grenades = grenades;
@@ -25,21 +24,27 @@ namespace Unity4.Lesson8
 
             _takeObject = takeObject;
 
-            _grenadeExplode =
-                new GrenadeExplode(enemies, new Explosion(_grenade.ExplosionForce, _grenade.ExplosionRadius));
+            _explode = new ExplodeGrenade(enemies);
+            _explode.IsExploded += model =>
+            {
+                _grenades.Return(model);
+                _isGrenadeThrown = false;
+            };
         }
 
         public void Throw()
         {
             if (!_takeObject.IsObjectTaken)
             {
-                _grenade = _grenades.Get();
-                _grenade.Transform.gameObject.SetActive(true);
+                var grenade = _grenades.Get();
+                grenade.Transform.gameObject.SetActive(true);
 
-                SetPosition();
-                ThrowGrenade();
+                SetPosition(grenade);
+                ThrowGrenade(grenade);
 
                 _isGrenadeThrown = true;
+                
+                _explode.SetExplosionObject(grenade);
             }
         }
 
@@ -47,21 +52,21 @@ namespace Unity4.Lesson8
         {
             if (_isGrenadeThrown)
             {
-                //_grenades.Return(_grenade);
+                _explode.Execute(deltaTime);
             }
         }
 
-        private void SetPosition()
+        private void SetPosition(IGrenadeModel grenade)
         {
-            _grenade.Transform.gameObject.SetActive(true);
-            _grenade.Transform.position = _throwPoint.position;
-            _grenade.Transform.rotation = _throwPoint.rotation;
+            grenade.Transform.gameObject.SetActive(true);
+            grenade.Transform.position = _throwPoint.position;
+            grenade.Transform.rotation = _throwPoint.rotation;
         }
 
-        private void ThrowGrenade()
+        private void ThrowGrenade(IGrenadeModel grenade)
         {
-            _grenade.Transform.gameObject.GetComponent<Rigidbody>()
-                .AddForce(_grenade.Transform.forward * _grenade.ThrowForce, ForceMode.Impulse);
+            grenade.Transform.gameObject.GetComponent<Rigidbody>()
+                .AddForce(grenade.Transform.forward * grenade.ThrowForce, ForceMode.Impulse);
         }
     }
 }

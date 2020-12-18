@@ -3,7 +3,7 @@
     public interface IPlayerModel
     {
         ICharacterModel Character { get; }
-        IGrenadeModel Grenade { get; }
-        IMineModel Mine { get; }
+        IPull<IGrenadeModel> Grenades { get; }
+        IPull<IMineModel> Mines { get; }
     }
 }

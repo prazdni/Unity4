@@ -8,5 +8,6 @@ namespace Unity4.Lesson8
         float ExplosionForce { get; }
         float ExplosionRadius { get; }
         float Damage { get; }
+        float Duration { get; }
     }
 }

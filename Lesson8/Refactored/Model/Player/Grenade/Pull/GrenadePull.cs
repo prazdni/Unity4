@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Unity4.Lesson8
 {
     public class GrenadePull : IPull<IGrenadeModel>
     {
+        public int Count { get; }
         private List<IGrenadeModel> _grenades;
         private GrenadeConfiguration _grenadeConfig;
-        public int Count { get; }
-
+        
         public GrenadePull(GrenadeConfiguration grenade)
         {
             Count = grenade.Quantity;
@@ -16,7 +19,7 @@ namespace Unity4.Lesson8
             _grenadeConfig = grenade;
 
             var grenadeModel = new GrenadeModel(Object.Instantiate(grenade.Prefab, Vector3.zero, Quaternion.identity),
-                grenade.ThrowForce, grenade.ExplosionForce, grenade.ExplosionRadius, grenade.Damage);
+                grenade.ThrowForce, grenade.ExplosionForce, grenade.ExplosionRadius, grenade.Damage, grenade.Duration);
 
             _grenades = new List<IGrenadeModel>();
 
@@ -30,17 +33,17 @@ namespace Unity4.Lesson8
                 g.Transform.gameObject.SetActive(false);
             }
         }
-
         
-
         public IGrenadeModel Get()
         {
             var grenade = _grenades.Find(g => !g.Transform.gameObject.activeSelf);
 
             if (grenade == null)
             {
-                var newGrenadeModel = new GrenadeModel(Object.Instantiate(_grenadeConfig.Prefab, Vector3.zero, Quaternion.identity),
-                    _grenadeConfig.ThrowForce, _grenadeConfig.ExplosionForce, _grenadeConfig.ExplosionRadius, _grenadeConfig.Damage);
+                var newGrenadeModel = new GrenadeModel(
+                    Object.Instantiate(_grenadeConfig.Prefab, Vector3.zero, Quaternion.identity),
+                    _grenadeConfig.ThrowForce, _grenadeConfig.ExplosionForce, _grenadeConfig.ExplosionRadius,
+                    _grenadeConfig.Damage, _grenadeConfig.Duration);
 
                 newGrenadeModel.Transform.gameObject.SetActive(false);
                 _grenades.Add(newGrenadeModel);
@@ -52,6 +55,19 @@ namespace Unity4.Lesson8
         public void Return(IGrenadeModel grenade)
         {
             grenade.Transform.gameObject.SetActive(false);
+        }
+        
+        public IEnumerator<IGrenadeModel> GetEnumerator()
+        {
+            foreach (var grenade in _grenades)
+            {
+                yield return grenade;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

@@ -10,7 +10,7 @@
         public static ICharacterModel Copy(this ICharacterModel character)
         {
             return new CharacterModel(character.Transform, character.ThrowGrenadePosition, character.SetMinePosition,
-                character.Health, character.Speed, character.TakeRange);
+                character.HealthModel, character.SpeedModel, character.TakeRange);
         }
     }
 }

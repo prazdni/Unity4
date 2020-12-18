@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class SimpleEnemyModel : ISimpleEnemy
+    public class SimpleEnemyModel : ISimpleEnemyModel
     {
         public Transform Transform { get; }
         

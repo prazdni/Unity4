@@ -10,7 +10,7 @@ namespace Unity4.Lesson8
         public MoveViewModel(CharacterModel character)
         {
             _character = character;
-            _speed = character.Speed.MoveSpeed;
+            _speed = character.SpeedModel.MoveSpeed;
         }
 
         public void Move(Vector3 direction, float deltaTime)

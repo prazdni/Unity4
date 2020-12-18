@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Unity4.Lesson8
 {
     [Serializable]
-    public class Health : IHealth
+    public class HealthModel : IHealthModel
     {
         [SerializeField] private float _maxHealth;
         private float _currentHealth;

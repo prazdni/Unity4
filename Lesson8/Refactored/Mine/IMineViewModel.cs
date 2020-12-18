@@ -1,11 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Unity4.Lesson8
 {
     public interface IMineViewModel
     {
-        event Action<float> OnCollision;
+        event Action<Vector3> OnCollision;
 
-        void SetDamageOnCollision();
+        void SetDamageOnCollision(Vector3 position);
     }
 }

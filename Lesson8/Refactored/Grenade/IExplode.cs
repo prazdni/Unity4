@@ -3,9 +3,9 @@ using Asteroids;
 
 namespace Unity4.Lesson8
 {
-    public interface IGrenadeExplode : IExecute
+    public interface IExplode<T> : IExecute
     {
-        event Action<IGrenadeModel> IsExploded;
-        void SetGrenade(IGrenadeModel grenade, float maxTimerValue);
+        event Action<T> IsExploded;
+        void SetExplosionObject(T explosionObject);
     }
 }

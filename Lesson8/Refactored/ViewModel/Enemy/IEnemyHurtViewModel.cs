@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public interface IEnemyDamageViewModel
+    public interface IEnemyHurtViewModel
     {
         Transform Transform { get; }
-        event Action<float> OnEnemyDamage;
-        void DamageEnemy(float damage);
+        float CurrentHealth { get; }
+        event Action<float> OnEnemyHurt;
+        void HurtEnemy(float damage);
     }
 }

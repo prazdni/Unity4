@@ -8,7 +8,7 @@ namespace Unity4.Lesson8
         private IGrenadeThrower _grenadeThrower;
         private IExecute _grenadeInput;
 
-        public GrenadeExecute(List<IEnemyHurtViewModel> enemyDamageViewModel, IPull<IGrenadeModel> grenades,
+        public GrenadeExecute(IPull<IEnemyHurtViewModel> enemyDamageViewModel, IPull<IGrenadeModel> grenades,
             ITakeObject takeObject, Transform throwPoint)
         {
             _grenadeThrower = new GrenadeThrow(enemyDamageViewModel, grenades, takeObject, throwPoint);

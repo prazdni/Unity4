@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Unity4.Lesson8
 {
     [Serializable]
-    public class Speed : ISpeed
+    public class SpeedModel : ISpeedModel
     {
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _rotationSpeed;

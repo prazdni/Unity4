@@ -12,16 +12,16 @@ namespace Unity4.Lesson8
         private IExplosion _explosion;
         private IPull<IMineModel> _minePull;
         
-        private Queue<IMineModel> _sceneMines;
+        private List<IMineModel> _sceneMines;
         private int _minesCount;
         private bool _isMineSet;
         
-        public MineDamage(ISimpleEnemyModel enemyModel, IPull<IMineModel> minePull, Transform setPoint)
+        public MineDamage(IPull<ISimpleEnemyModel> enemies, IPull<IMineModel> minePull, Transform setPoint)
         {
             _minesCount = minePull.Count;
             _isMineSet = false;
             
-            _sceneMines = new Queue<IMineModel>();
+            _sceneMines = new List<IMineModel>();
             
             _setPoint = setPoint;
             

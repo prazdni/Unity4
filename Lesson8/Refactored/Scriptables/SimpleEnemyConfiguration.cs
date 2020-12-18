@@ -8,7 +8,7 @@ namespace Unity4.Lesson8
     {
         [SerializeField] private Transform _prefab;
         [SerializeField] private List<Vector3> _wayPoints;
-        [SerializeField] private Health _health;
+        [SerializeField] private HealthModel healthModel;
         [SerializeField] private float _speed;
         [SerializeField] private float _damage;
 
@@ -16,7 +16,7 @@ namespace Unity4.Lesson8
 
         public List<Vector3> WayPoints => _wayPoints;
 
-        public Health Health => _health;
+        public HealthModel HealthModel => healthModel;
 
         public float Speed => _speed;
 

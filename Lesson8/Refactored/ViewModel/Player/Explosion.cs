@@ -9,7 +9,7 @@ namespace Unity4.Lesson8
         private float _explosionForce;
         private float _explosionRadius;
 
-        public Explosion(float explosionForce, float explosionRadius)
+        public void SetExplosionParameters(float explosionForce, float explosionRadius)
         {
             _explosionForce = explosionForce;
             _explosionRadius = explosionRadius;

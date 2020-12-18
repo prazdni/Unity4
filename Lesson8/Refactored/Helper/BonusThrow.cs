@@ -6,7 +6,7 @@ namespace Unity4.Lesson8
     {
         private IPlayerModel _player;
         private IOnPlayerEffect<IBonusModel> _playerEffect;
-        private IPullable<IBonusModel> _bonusThrowPull;
+        private IPull<IBonusModel> _bonusThrowPull;
         private IBonusModel _bonus;
         
         private bool _isBonusFlying;

@@ -3,22 +3,24 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class EnemyDamageViewModel : IEnemyDamageViewModel
+    public class EnemyHurtViewModel : IEnemyHurtViewModel
     {
         public Transform Transform { get; }
-        public event Action<float> OnEnemyDamage = f => { };
+        public float CurrentHealth => _enemyModel.HealthModel.CurrentHealth;
+        public event Action<float> OnEnemyHurt = f => { };
         
         private ISimpleEnemyModel _enemyModel;
         
-        public EnemyDamageViewModel(ISimpleEnemyModel enemyModel)
+        public EnemyHurtViewModel(ISimpleEnemyModel enemyModel)
         {
             _enemyModel = enemyModel;
+            Transform = _enemyModel.Transform;
         }
 
-        public void DamageEnemy(float damage)
+        public void HurtEnemy(float damage)
         {
             _enemyModel.HealthModel.CurrentHealth -= damage;
-            OnEnemyDamage.Invoke(_enemyModel.HealthModel.CurrentHealth);
+            OnEnemyHurt.Invoke(damage);
         }
     }
 }

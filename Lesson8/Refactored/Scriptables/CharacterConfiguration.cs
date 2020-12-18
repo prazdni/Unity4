@@ -8,8 +8,8 @@ namespace Unity4.Lesson8
         [SerializeField] private Transform _prefab;
         [SerializeField] private Transform _throwGrenadePosition;
         [SerializeField] private Transform _setMinePosition;
-        [SerializeField] private Health _maxHealth;
-        [SerializeField] private Speed _speed;
+        [SerializeField] private HealthModel maxHealthModel;
+        [SerializeField] private SpeedModel speedModel;
         [SerializeField] private float _takeRange;
         
         public Transform Prefab => _prefab;
@@ -18,9 +18,9 @@ namespace Unity4.Lesson8
         
         public Transform SetMinePosition => _setMinePosition;
 
-        public Health Health => _maxHealth;
+        public HealthModel HealthModel => maxHealthModel;
 
-        public Speed Speed => _speed;
+        public SpeedModel SpeedModel => speedModel;
 
         public float TakeRange => _takeRange;
     }

@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Unity4.Lesson8
 {
-    public class MinePull : IMinePull
+    public class MinePull : IPull<IMineModel>
     {
         private List<IMineModel> _mines;
         private MineConfiguration _mineConfig;
@@ -16,7 +19,7 @@ namespace Unity4.Lesson8
             _mineConfig = mine;
             
             var mineModel = new MineModel(Object.Instantiate(mine.Prefab, Vector3.zero, Quaternion.identity),
-                mine.ExplosionForce, mine.ExplosionRadius, mine.Damage);
+                mine.ExplosionForce, mine.ExplosionRadius, mine.Damage, mine.Duration);
 
             _mines = new List<IMineModel>();
 
@@ -39,7 +42,7 @@ namespace Unity4.Lesson8
             {
                 var newMineModel = new MineModel(
                     Object.Instantiate(_mineConfig.Prefab, Vector3.zero, Quaternion.identity),
-                    _mineConfig.ExplosionForce, _mineConfig.ExplosionRadius, _mineConfig.Damage);
+                    _mineConfig.ExplosionForce, _mineConfig.ExplosionRadius, _mineConfig.Damage, _mineConfig.Duration);
                 
                 newMineModel.Transform.gameObject.SetActive(false);
                 _mines.Add(newMineModel);
@@ -51,6 +54,19 @@ namespace Unity4.Lesson8
         public void Return(IMineModel mine)
         {
             mine.Transform.gameObject.SetActive(false);
+        }
+
+        public IEnumerator<IMineModel> GetEnumerator()
+        {
+            foreach (var mine in _mines)
+            {
+                yield return mine;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
