@@ -6,27 +6,21 @@ namespace Unity4.Lesson8
 {
     public class MineViewModel : IMineViewModel
     {
-        public event Action<Vector3> OnCollision = v => { };
-
-        private IExplode<IMineModel> _explodeMine;
-        private IPull<ISimpleEnemyModel> _enemies;
-        private float _explosionForce;
-        private float _explosionRadius;
-
-        public MineViewModel(IPull<ISimpleEnemyModel> enemies, float explosionForce, float explosionRadius)
+        public event Action<Vector3, float> OnCollision = (v, f) => { };
+        
+        public float ExplosionForce => _mine.ExplosionForce;
+        public float ExplosionRadius => _mine.ExplosionRadius;
+        
+        private IMineModel _mine;
+        
+        public MineViewModel(IMineModel mine)
         {
-            _enemies = enemies;
-            _explosionForce = explosionForce;
-            _explosionRadius = explosionRadius;
-            _explodeMine = new ExplodeMine(explosionForce, explosionRadius);
+            _mine = mine;
         }
         
         public void SetDamageOnCollision(Vector3 position)
         {
-            foreach (var enemy in _enemies)
-            {
-                throw new NotImplementedException();
-            }
+            OnCollision.Invoke(position, _mine.Damage);
         }
     }
 }

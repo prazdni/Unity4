@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Unity4.Lesson8
 {
@@ -9,7 +7,7 @@ namespace Unity4.Lesson8
         private float _explosionForce;
         private float _explosionRadius;
 
-        public void SetExplosionParameters(float explosionForce, float explosionRadius)
+        public Explosion(float explosionForce, float explosionRadius)
         {
             _explosionForce = explosionForce;
             _explosionRadius = explosionRadius;

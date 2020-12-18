@@ -16,7 +16,24 @@ namespace Unity4.Lesson8
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
-                _viewModel.SetDamageOnCollision();
+                _viewModel.SetDamageOnCollision(transform.position);
+            }
+            
+            Explode(transform.position);
+        }
+        
+        private void Explode(Vector3 position)
+        {
+            Collider[] colliders = new Collider[10];
+            Physics.OverlapSphereNonAlloc(position, _viewModel.ExplosionRadius, colliders);
+
+            foreach (var coll in colliders)
+            {
+                if (coll.GetComponent<Rigidbody>() != null)
+                {
+                    coll.GetComponent<Rigidbody>().AddExplosionForce(_viewModel.ExplosionForce,
+                        position, _viewModel.ExplosionRadius);
+                }
             }
         }
     }
