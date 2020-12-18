@@ -7,66 +7,59 @@ namespace Unity4.Lesson8
 {
     public class GrenadeThrow : IGrenadeThrower
     {
+        private IPull<IExplosionViewModel<IGrenadeModel>> _grenades;
         private Transform _throwPoint;
-        private IPull<IGrenadeModel> _grenades;
         private bool _isGrenadeThrown;
         private ITakeObject _takeObject;
-        private IExplode<IGrenadeModel> _explode;
+        private int _currentCount;
 
-        public GrenadeThrow(IPull<IEnemyHurtViewModel> enemies, IPull<IGrenadeModel> grenades, ITakeObject takeObject,
-            Transform throwPoint)
+        public GrenadeThrow(IPull<IExplosionViewModel<IGrenadeModel>> grenades, Transform throwPoint, ITakeObject takeObject)
         {
-            _grenades = grenades;
-
             _throwPoint = throwPoint;
 
             _isGrenadeThrown = false;
 
             _takeObject = takeObject;
 
-            _explode = new ExplodeGrenade(enemies);
-            _explode.IsExploded += model =>
+            _currentCount = 0;
+
+            foreach (var grenade in grenades)
             {
-                _grenades.Return(model);
-                _isGrenadeThrown = false;
-            };
+                grenade.OnCollision += Exploded;
+            }
         }
 
         public void Throw()
         {
             if (!_takeObject.IsObjectTaken)
             {
-                var grenade = _grenades.Get();
-                grenade.Transform.gameObject.SetActive(true);
-
-                SetPosition(grenade);
-                ThrowGrenade(grenade);
-
-                _isGrenadeThrown = true;
-                
-                _explode.SetExplosionObject(grenade);
+                if (_currentCount < _grenades.Count )
+                {
+                    _currentCount++;
+                    var grenade = _grenades.Get();
+                    grenade.DamageObj.Transform.gameObject.SetActive(true);
+                    SetPosition(grenade);
+                    ThrowGrenade(grenade);
+                }
             }
         }
 
-        public void Execute(float deltaTime)
+        private void SetPosition(IExplosionViewModel<IGrenadeModel> grenade)
         {
-            if (_isGrenadeThrown)
-            {
-                _explode.Execute(deltaTime);
-            }
+            grenade.DamageObj.Transform.gameObject.SetActive(true);
+            grenade.DamageObj.Transform.position = _throwPoint.position;
+            grenade.DamageObj.Transform.rotation = _throwPoint.rotation;
         }
 
-        private void SetPosition(IGrenadeModel grenade)
+        private void ThrowGrenade(IExplosionViewModel<IGrenadeModel> grenade)
         {
-            grenade.Transform.gameObject.SetActive(true);
-            grenade.Transform.position = _throwPoint.position;
-            grenade.Transform.rotation = _throwPoint.rotation;
+            grenade.DamageObj.Transform.gameObject.GetComponent<Rigidbody>()
+                .AddForce(grenade.DamageObj.Transform.forward * grenade.DamageObj.ThrowForce, ForceMode.Impulse);
         }
 
-        private void ThrowGrenade(IGrenadeModel grenade)
+        private void Exploded(Vector3 position)
         {
-            grenade.Transform.gameObject.GetComponent<Rigidbody>()
-                .AddForce(grenade.Transform.forward * grenade.ThrowForce, ForceMode.Impulse);
+            _currentCount--;
         }
     }
 }

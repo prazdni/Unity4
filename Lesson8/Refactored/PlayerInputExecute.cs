@@ -14,7 +14,7 @@
             
             var takeObject = new TakeObject(player.Character.ThrowGrenadePosition, player.Character.TakeRange);
             _takeInput = new TakeObjectInput(takeObject);
-            _grenadeInput = new GrenadeInput();
+            _grenadeInput = new GrenadeInput(player.Grenades, player.Character.ThrowGrenadePosition, takeObject);
         }
 
         public void Execute(float deltaTime)

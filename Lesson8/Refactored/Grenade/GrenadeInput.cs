@@ -9,9 +9,10 @@ namespace Unity4.Lesson8
         private IUserKeyInput _grenadeInput;
         private IGrenadeThrower _grenadeThrower;
 
-        public GrenadeInput(IGrenadeThrower grenadeThrower)
+        public GrenadeInput(IPull<IExplosionViewModel<IGrenadeModel>> grenades, Transform throwGrenadePosition,
+            ITakeObject takeObject)
         {
-            _grenadeThrower = grenadeThrower;
+            _grenadeThrower = new GrenadeThrow(grenades, throwGrenadePosition, takeObject);
             _grenadeInput = new PCUserInputGrenade();
         }
         

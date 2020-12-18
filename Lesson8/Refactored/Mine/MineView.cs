@@ -16,7 +16,7 @@ namespace Unity4.Lesson8
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
-                _viewModel.SetDamageOnCollision(transform.position);
+                _viewModel.Explode(transform.position);
             }
             
             Explode(transform.position);

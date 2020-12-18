@@ -6,26 +6,26 @@ namespace Unity4.Lesson8
 {
     public class MineViewModelPull : IPull<IExplosionViewModel<IMineModel>>
     {
-        private List<IExplosionViewModel<IMineModel>> _mines;
-        public int Count => _mines.FindAll(a => !a.DamageObj.Transform.gameObject.activeSelf).Count;
-
-        private int _maxCount;
+        public int Count { get; }
         
-        public MineViewModelPull(MineConfiguration obj)
+        private List<IExplosionViewModel<IMineModel>> _mines;
+
+        public MineViewModelPull(IExplosionViewModel<IMineModel> mine, int count)
         {
-            _maxCount = obj.Quantity;
-            _mines = new List<IExplosionViewModel<IMineModel>>();
+            Count = count;
             
-            var mineFactory = new MineFactory();
+            _mines = new List<IExplosionViewModel<IMineModel>>();
 
             for (int i = 0; i < Count; i++)
             {
-                _mines.Add(mineFactory.Create(obj));
+                _mines.Add(mine);
             }
         }
         public IExplosionViewModel<IMineModel> Get()
         {
-            if (Count <= _maxCount)
+            var count = _mines.FindAll(a => !a.DamageObj.Transform.gameObject.activeSelf).Count;
+            
+            if (count == Count)
             {
                 return _mines.Find(a => !a.DamageObj.Transform.gameObject.activeSelf);
             }

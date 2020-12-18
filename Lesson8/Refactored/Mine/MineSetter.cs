@@ -16,6 +16,11 @@ namespace Unity4.Lesson8
             _setPoint = setPoint;
             
             _minePull = minePull;
+
+            foreach (var mine in minePull)
+            {
+                mine.OnCollision += OnExplosion;
+            }
         }
         
         public void Set()
@@ -28,6 +33,11 @@ namespace Unity4.Lesson8
             explosion.DamageObj.Transform.gameObject.SetActive(true);
             explosion.DamageObj.Transform.position = _setPoint.position;
             explosion.DamageObj.Transform.rotation = _setPoint.rotation;
+        }
+
+        private void OnExplosion(IMineModel mineModel)
+        {
+            _minePull.Return();
         }
     }
 }

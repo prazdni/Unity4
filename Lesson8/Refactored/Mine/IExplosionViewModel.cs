@@ -9,6 +9,6 @@ namespace Unity4.Lesson8
         
         T DamageObj { get; }
 
-        void SetDamageOnCollision(Vector3 position);
+        void Explode(Vector3 position);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Unity4.Lesson8
 {
-    public interface IGrenadeThrower : IExecute
+    public interface IGrenadeThrower
     {
         void Throw();
     }

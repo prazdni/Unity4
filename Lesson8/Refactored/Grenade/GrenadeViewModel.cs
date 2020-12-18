@@ -14,7 +14,7 @@ namespace Unity4.Lesson8
             DamageObj = grenadeModel;
         }
         
-        public void SetDamageOnCollision(Vector3 position)
+        public void Explode(Vector3 position)
         {
             OnCollision.Invoke(position);
         }
