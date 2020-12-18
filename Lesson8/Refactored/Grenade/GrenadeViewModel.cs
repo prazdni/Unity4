@@ -1,18 +1,17 @@
 ﻿using System;
-using Asteroids;
 using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class MineViewModel : IExplosionViewModel<IMineModel>
+    public class GrenadeViewModel : IExplosionViewModel<IGrenadeModel>
     {
         public event Action<Vector3> OnCollision = v => { };
+        
+        public IGrenadeModel DamageObj { get; }
 
-        public IMineModel DamageObj { get; }
-
-        public MineViewModel(IMineModel mine)
+        public GrenadeViewModel(IGrenadeModel grenadeModel)
         {
-            DamageObj = mine;
+            DamageObj = grenadeModel;
         }
         
         public void SetDamageOnCollision(Vector3 position)

@@ -23,9 +23,9 @@ namespace Unity4.Lesson8
             return _bonus;
         }
 
-        public void Return(IBonusModel transform)
+        public void Return(IBonusModel obj)
         {
-            transform.Transform.gameObject.SetActive(false);
+            obj.Transform.gameObject.SetActive(false);
         }
     }
 }

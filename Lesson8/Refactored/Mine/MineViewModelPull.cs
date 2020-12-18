@@ -4,14 +4,17 @@ using System.Collections.Generic;
 
 namespace Unity4.Lesson8
 {
-    public class MineViewModelPull : IPull<IMineViewModel>
+    public class MineViewModelPull : IPull<IExplosionViewModel<IMineModel>>
     {
-        private List<IMineViewModel> _mines;
-        public int Count { get; }
+        private List<IExplosionViewModel<IMineModel>> _mines;
+        public int Count => _mines.FindAll(a => !a.DamageObj.Transform.gameObject.activeSelf).Count;
 
+        private int _maxCount;
+        
         public MineViewModelPull(MineConfiguration obj)
         {
-            Count = obj.Quantity;
+            _maxCount = obj.Quantity;
+            _mines = new List<IExplosionViewModel<IMineModel>>();
             
             var mineFactory = new MineFactory();
 
@@ -20,17 +23,23 @@ namespace Unity4.Lesson8
                 _mines.Add(mineFactory.Create(obj));
             }
         }
-        public IMineViewModel Get()
+        public IExplosionViewModel<IMineModel> Get()
         {
-            throw new System.NotImplementedException();
+            if (Count <= _maxCount)
+            {
+                return _mines.Find(a => !a.DamageObj.Transform.gameObject.activeSelf);
+            }
+                
+            _mines[0].DamageObj.Transform.gameObject.SetActive(false);
+            return _mines[0];
         }
 
-        public void Return(IMineViewModel grenade)
+        public void Return(IExplosionViewModel<IMineModel> obj)
         {
-            throw new System.NotImplementedException();
+            obj.DamageObj.Transform.gameObject.SetActive(false);
         }
         
-        public IEnumerator<IMineViewModel> GetEnumerator()
+        public IEnumerator<IExplosionViewModel<IMineModel>> GetEnumerator()
         {
             foreach (var mine in _mines)
             {
@@ -42,7 +51,5 @@ namespace Unity4.Lesson8
         {
             return GetEnumerator();
         }
-
-        
     }
 }

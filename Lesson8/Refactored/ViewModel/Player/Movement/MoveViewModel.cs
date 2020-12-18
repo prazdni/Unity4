@@ -4,10 +4,10 @@ namespace Unity4.Lesson8
 {
     public class MoveViewModel : IMoveViewModel
     {
-        private CharacterModel _character;
+        private ICharacterModel _character;
         private float _speed;
 
-        public MoveViewModel(CharacterModel character)
+        public MoveViewModel(ICharacterModel character)
         {
             _character = character;
             _speed = character.SpeedModel.MoveSpeed;

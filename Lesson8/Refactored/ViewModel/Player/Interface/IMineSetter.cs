@@ -1,6 +1,6 @@
 ﻿namespace Unity4.Lesson8
 {
-    public interface IMineSetter : IExecute
+    public interface IMineSetter
     {
         void Set();
     }

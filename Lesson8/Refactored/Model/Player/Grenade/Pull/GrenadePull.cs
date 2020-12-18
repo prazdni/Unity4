@@ -52,9 +52,9 @@ namespace Unity4.Lesson8
             return _grenades.Find(g => !g.Transform.gameObject.activeSelf);
         }
 
-        public void Return(IGrenadeModel grenade)
+        public void Return(IGrenadeModel obj)
         {
-            grenade.Transform.gameObject.SetActive(false);
+            obj.Transform.gameObject.SetActive(false);
         }
         
         public IEnumerator<IGrenadeModel> GetEnumerator()

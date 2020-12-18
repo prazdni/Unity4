@@ -4,10 +4,10 @@ namespace Unity4.Lesson8
 {
     public class RotationViewModel : IRotationViewModel
     {
-        private CharacterModel _character;
+        private ICharacterModel _character;
         private float _rotationSpeed;
 
-        public RotationViewModel(CharacterModel character)
+        public RotationViewModel(ICharacterModel character)
         {
             _character = character;
             _rotationSpeed = character.SpeedModel.RotationSpeed;

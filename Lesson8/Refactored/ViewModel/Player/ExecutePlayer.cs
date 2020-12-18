@@ -11,7 +11,7 @@ namespace Unity4.Lesson8
         
         public ExecuteViewModel(List<IEnemyHurtViewModel> enemyDamageViewModel, CharacterModel character, IPull<IGrenadeModel> grenades, IPull<IMineModel> mines)
         {
-            _characterMovement = new MovementInputViewModel(character);
+            _characterMovement = new MovementInput(character);
             _takeObject = new TakeExecute(character, character.ThrowGrenadePosition);
             _grenade = new GrenadeExecute(enemyDamageViewModel, grenades, _takeObject.TakeObject, character.ThrowGrenadePosition);
             _mine = new MineExecute(mines, character.SetMinePosition);

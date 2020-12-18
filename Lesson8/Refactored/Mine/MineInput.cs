@@ -1,4 +1,5 @@
 ﻿using Asteroids;
+using UnityEngine;
 
 namespace Unity4.Lesson8
 {
@@ -7,10 +8,9 @@ namespace Unity4.Lesson8
         private IMineSetter _mineSetter;
         private IUserKeyInput _mineInput;
 
-
-        public MineInput(IMineSetter mineSetter)
+        public MineInput(IPull<IExplosionViewModel<IMineModel>> mines, Transform setPoint)
         {
-            _mineSetter = mineSetter;
+            _mineSetter = new MineSetter(mines, setPoint);
             _mineInput = new PCUserInputMine();
         }
         

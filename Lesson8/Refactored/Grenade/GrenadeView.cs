@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class MineView : MonoBehaviour, IInitialize<IExplosionViewModel<IMineModel>>
+    public class GrenadeView : MonoBehaviour, IInitialize<IExplosionViewModel<IGrenadeModel>>
     {
-        private IExplosionViewModel<IMineModel> _viewModel;
+        private IExplosionViewModel<IGrenadeModel> _viewModel;
         
-        public void Initialize(IExplosionViewModel<IMineModel> viewModel)
+        public void Initialize(IExplosionViewModel<IGrenadeModel> viewModel)
         {
             _viewModel = viewModel;
         }
-
+        
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag("Enemy"))
@@ -21,7 +21,7 @@ namespace Unity4.Lesson8
             
             Explode(transform.position);
         }
-        
+
         private void Explode(Vector3 position)
         {
             Collider[] colliders = new Collider[10];

@@ -6,6 +6,6 @@ namespace Unity4.Lesson8
     {
         int Count { get; }
         T Get();
-        void Return(T grenade);
+        void Return(T obj);
     }
 }

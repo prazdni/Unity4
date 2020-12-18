@@ -4,6 +4,6 @@
     {
         ICharacterModel Character { get; }
         IPull<IGrenadeModel> Grenades { get; }
-        IPull<IMineModel> Mines { get; }
+        IPull<IExplosionViewModel<>> Mines { get; }
     }
 }

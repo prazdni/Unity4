@@ -51,9 +51,9 @@ namespace Unity4.Lesson8
             return _mines.Find(a => !a.Transform.gameObject.activeSelf);
         }
         
-        public void Return(IMineModel mine)
+        public void Return(IMineModel obj)
         {
-            mine.Transform.gameObject.SetActive(false);
+            obj.Transform.gameObject.SetActive(false);
         }
 
         public IEnumerator<IMineModel> GetEnumerator()

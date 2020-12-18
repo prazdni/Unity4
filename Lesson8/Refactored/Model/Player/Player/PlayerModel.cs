@@ -6,7 +6,7 @@ namespace Unity4.Lesson8
     {
         public ICharacterModel Character { get; }
         public IPull<IGrenadeModel> Grenades { get; }
-        public IPull<IMineModel> Mines { get; }
+        public IPull<IExplosionViewModel<>> Mines { get; }
         
         public PlayerModel(ICharacterModel character, IPull<IGrenadeModel> grenades, IPull<IMineModel> mines)
         {

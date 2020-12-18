@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class MovementInputViewModel : IExecute
+    public class MovementInput : IExecute
     {
         private IMoveViewModel _movePlayer;
         private IRotationViewModel _rotationPlayer;
@@ -13,7 +13,7 @@ namespace Unity4.Lesson8
         
         
         
-        public MovementInputViewModel(CharacterModel character)
+        public MovementInput(ICharacterModel character)
         {
             _horizontal = new PCUserAxisInputHorizontal();
             _vertical = new PCUserAxisInputVertical();

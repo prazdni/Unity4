@@ -1,5 +1,6 @@
 ﻿using System;
 using Asteroids;
+using UnityEngine;
 
 namespace Unity4.Lesson8
 {
@@ -20,6 +21,8 @@ namespace Unity4.Lesson8
             {
                 _takeObject.Take();
             }
+            
+            _takeObject.Execute(deltaTime);
         }
     }
 }

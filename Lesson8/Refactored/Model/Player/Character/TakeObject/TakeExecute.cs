@@ -8,10 +8,9 @@ namespace Unity4.Lesson8
         private ITakeObject _takeObject;
         private IExecute _takeInput;
 
-        public TakeExecute(CharacterModel character, Transform takePoint)
+        public TakeExecute(ICharacterModel character, Transform takePoint)
         {
             _takeObject = new TakeObject(takePoint, character.TakeRange);
-            _takeInput = new TakeObjectInput(_takeObject);
         }
 
         public void Execute(float deltaTime)
