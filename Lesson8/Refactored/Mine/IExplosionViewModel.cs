@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public interface IExplosionViewModel<T>
+    public interface IExplosionViewModel
     {
         event Action<Vector3> OnCollision;
         
-        T DamageObj { get; }
+        float DamageObj { get; }
 
         void Explode(Vector3 position);
     }

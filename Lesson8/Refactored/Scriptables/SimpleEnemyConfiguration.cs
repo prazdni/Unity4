@@ -11,6 +11,7 @@ namespace Unity4.Lesson8
         [SerializeField] private HealthModel healthModel;
         [SerializeField] private float _speed;
         [SerializeField] private float _damage;
+        [SerializeField] private int _quantity;
 
         public Transform Prefab => _prefab;
 
@@ -21,5 +22,7 @@ namespace Unity4.Lesson8
         public float Speed => _speed;
 
         public float Damage => _damage;
+
+        public int Quantity => _quantity;
     }
 }

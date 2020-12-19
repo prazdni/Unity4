@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Unity4.Lesson8
 {
@@ -26,6 +28,16 @@ namespace Unity4.Lesson8
         public void Return(IBonusModel obj)
         {
             obj.Transform.gameObject.SetActive(false);
+        }
+
+        public IEnumerator<IBonusModel> GetEnumerator()
+        {
+            yield return _bonus;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

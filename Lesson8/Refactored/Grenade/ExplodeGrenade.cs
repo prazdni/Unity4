@@ -10,11 +10,11 @@ namespace Unity4.Lesson8
         private UpTimer _timer;
         public event Action<IGrenadeModel> IsExploded = b => { };
 
-        private IPull<IEnemyHurtViewModel> _enemies;
+        private IPull<IEnemyViewModel> _enemies;
         private IGrenadeModel _grenade;
         private IExplosion _explosion;
 
-        public ExplodeGrenade(IPull<IEnemyHurtViewModel> enemies)
+        public ExplodeGrenade(IPull<IEnemyViewModel> enemies)
         {
             _enemies = enemies;
             _explosion = new Explosion();

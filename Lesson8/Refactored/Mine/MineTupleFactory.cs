@@ -2,9 +2,9 @@
 
 namespace Unity4.Lesson8
 {
-    public class MineFactory : IFactory<MineConfiguration, IExplosionViewModel<IMineModel>>
+    public class MineTupleFactory : ITupleFactory<MineConfiguration, IMineModel, IExplosionViewModel<IMineModel>>
     {
-        public IExplosionViewModel<IMineModel> Create(MineConfiguration obj)
+        public (IMineModel model, IExplosionViewModel<IMineModel> viewModel) Create(MineConfiguration obj)
         {
             var mineTransform = Object.Instantiate(obj.Prefab, Vector3.zero, Quaternion.identity);
             var view = mineTransform.GetOrAddComponent<MineView>();
@@ -16,7 +16,7 @@ namespace Unity4.Lesson8
             
             view.Initialize(mineViewModel);
 
-            return mineViewModel;
+            return (mineModel, mineViewModel);
         }
     }
 }

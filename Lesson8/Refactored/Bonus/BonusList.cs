@@ -8,16 +8,16 @@ namespace Unity4.Lesson8
     public class BonusList : IEnumerable<IBonusModel>
     {
         private List<IBonusModel> _bonuses;
-        private BonusFactory _factory;
+        private BonusTupleFactory _tupleFactory;
         
         public BonusList(BonusesConfiguration bonusesConfiguration)
         {
-            _factory = new BonusFactory();
+            _tupleFactory = new BonusTupleFactory();
             _bonuses = new List<IBonusModel>();
 
             for (int i = 0; i < bonusesConfiguration.Bonuses.Count; i++)
             {
-                var bonus = _factory.Create(bonusesConfiguration.Bonuses[i]);
+                var bonus = _tupleFactory.Create(bonusesConfiguration.Bonuses[i]);
                 _bonuses.Add(bonus);
             }
         }

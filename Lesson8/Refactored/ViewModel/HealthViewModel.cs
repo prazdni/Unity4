@@ -5,9 +5,9 @@ namespace Unity4.Lesson8
     public class HealthViewModel : IOnPlayerEffect<float>
     {
         public event Action<float> OnEffect = f => { };
-        private HealthModel _healthModel;
+        private IHealthModel _healthModel;
         
-        public HealthViewModel(HealthModel healthModel)
+        public HealthViewModel(IHealthModel healthModel)
         {
             _healthModel = healthModel;
         }

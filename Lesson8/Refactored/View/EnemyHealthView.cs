@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class EnemyHealthView : MonoBehaviour, IInitialize<IEnemyHurtViewModel>
+    public class EnemyHealthView : MonoBehaviour, IInitialize<IEnemyViewModel>
     {
         private TMP_Text _text;
         
@@ -14,7 +14,7 @@ namespace Unity4.Lesson8
             
         }
 
-        public void Initialize(IEnemyHurtViewModel viewModel)
+        public void Initialize(IEnemyViewModel viewModel)
         {
             viewModel.OnEnemyHurt += ChangeHealth;
             _text.text = (viewModel.CurrentHealth).ToString();

@@ -9,18 +9,13 @@ namespace Unity4.Lesson8
     {
         private Transform _setPoint;
         
-        private IPull<IExplosionViewModel<IMineModel>> _minePull;
+        private IPull<IMineModel> _minePull;
         
-        public MineSetter(IPull<IExplosionViewModel<IMineModel>> minePull, Transform setPoint)
+        public MineSetter(IPull<IMineModel> minePull, Transform setPoint)
         {
             _setPoint = setPoint;
             
             _minePull = minePull;
-
-            foreach (var mine in minePull)
-            {
-                mine.OnCollision += OnExplosion;
-            }
         }
         
         public void Set()
@@ -28,16 +23,11 @@ namespace Unity4.Lesson8
             SetPosition(_minePull.Get());
         }
 
-        private void SetPosition(IExplosionViewModel<IMineModel> explosion)
+        private void SetPosition(IMineModel explosion)
         {
-            explosion.DamageObj.Transform.gameObject.SetActive(true);
-            explosion.DamageObj.Transform.position = _setPoint.position;
-            explosion.DamageObj.Transform.rotation = _setPoint.rotation;
-        }
-
-        private void OnExplosion(IMineModel mineModel)
-        {
-            _minePull.Return();
+            explosion.Transform.gameObject.SetActive(true);
+            explosion.Transform.position = _setPoint.position;
+            explosion.Transform.rotation = _setPoint.rotation;
         }
     }
 }

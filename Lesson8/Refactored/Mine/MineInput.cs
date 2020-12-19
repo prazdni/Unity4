@@ -8,7 +8,7 @@ namespace Unity4.Lesson8
         private IMineSetter _mineSetter;
         private IUserKeyInput _mineInput;
 
-        public MineInput(IPull<IExplosionViewModel<IMineModel>> mines, Transform setPoint)
+        public MineInput(IPull<IMineModel> mines, Transform setPoint)
         {
             _mineSetter = new MineSetter(mines, setPoint);
             _mineInput = new PCUserInputMine();

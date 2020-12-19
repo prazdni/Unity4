@@ -2,9 +2,9 @@
 
 namespace Unity4.Lesson8
 {
-    public class GrenadeFactory : IFactory<GrenadeConfiguration, IExplosionViewModel<IGrenadeModel>>
+    public class GrenadeTupleFactory : ITupleFactory<GrenadeConfiguration, IGrenadeModel, IExplosionViewModel<IGrenadeModel>>
     {
-        public IExplosionViewModel<IGrenadeModel> Create(GrenadeConfiguration obj)
+        public (IGrenadeModel model, IExplosionViewModel<IGrenadeModel> viewModel) Create(GrenadeConfiguration obj)
         {
             var grenadeTransform = Object.Instantiate(obj.Prefab, Vector3.zero, Quaternion.identity);
             var view = grenadeTransform.GetOrAddComponent<GrenadeView>();
@@ -15,8 +15,8 @@ namespace Unity4.Lesson8
             IExplosionViewModel<IGrenadeModel> grenadeViewModel = new GrenadeViewModel(grenadeModel);
             
             view.Initialize(grenadeViewModel);
-
-            return grenadeViewModel;
+            
+            return (grenadeModel, grenadeViewModel);
         }
     }
 }
