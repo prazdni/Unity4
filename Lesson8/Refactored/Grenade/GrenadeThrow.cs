@@ -5,12 +5,14 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class GrenadeThrow : IGrenadeThrower
+    public class GrenadeThrow : IGrenadeThrow
     {
         private IPull<IGrenadeModel> _grenades;
         private Transform _throwPoint;
         private ITakeObject _takeObject;
-        private int _currentCount;
+        
+        private List<IGrenadeModel> _addedGrenades;
+        private List<UpTimer> _timers;
 
         public GrenadeThrow(IPull<IGrenadeModel> grenades, Transform throwPoint, ITakeObject takeObject)
         {
@@ -19,26 +21,25 @@ namespace Unity4.Lesson8
             _throwPoint = throwPoint;
             
             _takeObject = takeObject;
-
-            _currentCount = 0;
+            
+            _addedGrenades = new List<IGrenadeModel>();
+            _timers = new List<UpTimer>();
         }
 
         public void Throw()
         {
             if (!_takeObject.IsObjectTaken)
             {
-                if (_currentCount < _grenades.Count )
+                if (_grenades.Count != 0)
                 {
-                    _currentCount++;
                     var grenade = _grenades.Get();
                     
-                    if (grenade != null)
-                    {
-                        grenade.Transform.gameObject.SetActive(true);
-                        SetPosition(grenade);
-                        ThrowGrenade(grenade);
-                    }
+                    grenade.Transform.gameObject.SetActive(true);
+                    SetPosition(grenade);
+                    ThrowGrenade(grenade);
                     
+                    _addedGrenades.Add(grenade);
+                    _timers.Add(new UpTimer(0, grenade.Duration));
                 }
             }
         }
@@ -56,9 +57,18 @@ namespace Unity4.Lesson8
                 .AddForce(grenade.Transform.forward * grenade.ThrowForce, ForceMode.Impulse);
         }
 
-        private void Exploded(Vector3 position)
+        public void Execute(float deltaTime)
         {
-            _currentCount--;
+            for (int i = 0; i < _addedGrenades.Count; i++)
+            {
+                _timers[i].UpTimerTick(deltaTime);
+                if (!_addedGrenades[i].Transform.gameObject.activeSelf ||
+                    Mathf.Approximately(_timers[i].CurrentValue, _timers[i].MAXValue))
+                {
+                    _addedGrenades.RemoveAt(i);
+                    _timers.RemoveAt(i);
+                }
+            }
         }
     }
 }

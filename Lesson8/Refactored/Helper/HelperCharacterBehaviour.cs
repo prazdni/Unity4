@@ -10,7 +10,8 @@ namespace Unity4.Lesson8
         private IBonusThrow _bonusThrow;
         
 
-        public HelperCharacterBehaviour(IHelperCharacterModel helper, IPlayerModel player, IOnPlayerEffect<IBonusModel> playerEffect)
+        public HelperCharacterBehaviour(IHelperCharacterModel helper, IPlayerModel player, 
+            IOnPlayerEffect<IBonusModel> playerEffect)
         {
             _helper = helper;
             _player = player;

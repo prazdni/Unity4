@@ -13,6 +13,7 @@ namespace Unity4.Lesson8
         [SerializeField] private SimpleEnemyConfiguration _simpleEnemyConfiguration;
         [SerializeField] private ButtonConfiguration _buttonConfiguration;
         [SerializeField] private HelperCharacterConfiguration _helperCharacterConfiguration;
+        [SerializeField] private KeyConfiguration _keyConfiguration;
 
         public CharacterConfiguration CharacterConfiguration => _characterConfiguration;
         
@@ -27,5 +28,7 @@ namespace Unity4.Lesson8
         public ButtonConfiguration ButtonConfiguration => _buttonConfiguration;
 
         public HelperCharacterConfiguration HelperCharacterConfiguration => _helperCharacterConfiguration;
+
+        public KeyConfiguration KeyConfiguration => _keyConfiguration;
     }
 }

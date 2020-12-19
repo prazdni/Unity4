@@ -31,11 +31,5 @@ namespace Asteroids
         {
             _sumValue = _minValue;
         }
-
-        public void ResetTimerWithNewMaxValue(float maxValue)
-        {
-            _sumValue = _minValue;
-            _maxValue = maxValue;
-        }
     }
 }

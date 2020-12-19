@@ -11,7 +11,8 @@ namespace Unity4.Lesson8
         
         private bool _isBonusFlying;
         
-        public BonusThrow(IPlayerModel playerModel, IBonusModel bonusModel, Vector3 position, IOnPlayerEffect<IBonusModel> playerEffect)
+        public BonusThrow(IPlayerModel playerModel, IBonusModel bonusModel, Vector3 position, 
+            IOnPlayerEffect<IBonusModel> playerEffect)
         {
             _playerEffect = playerEffect;
             _player = playerModel;

@@ -7,12 +7,12 @@ namespace Unity4.Lesson8
     public class GrenadeInput : IExecute
     {
         private IUserKeyInput _grenadeInput;
-        private IGrenadeThrower _grenadeThrower;
+        private IGrenadeThrow _grenadeThrow;
 
         public GrenadeInput(IPull<IGrenadeModel> grenades, Transform throwGrenadePosition,
             ITakeObject takeObject)
         {
-            _grenadeThrower = new GrenadeThrow(grenades, throwGrenadePosition, takeObject);
+            _grenadeThrow = new GrenadeThrow(grenades, throwGrenadePosition, takeObject);
             _grenadeInput = new PCUserInputGrenade();
         }
         
@@ -20,8 +20,10 @@ namespace Unity4.Lesson8
         {
             if (_grenadeInput.IsKeyUp())
             {
-                _grenadeThrower.Throw();
+                _grenadeThrow.Throw();
             }
+            
+            _grenadeThrow.Execute(deltaTime);
         }
     }
 }

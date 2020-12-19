@@ -5,21 +5,19 @@ namespace Unity4.Lesson8
 {
     public class MovementInput : IExecute
     {
-        private IMoveViewModel _movePlayer;
-        private IRotationViewModel _rotationPlayer;
+        private IMove _movePlayer;
+        private IRotation _rotationPlayer;
         private IUserAxisInput _horizontal;
         private IUserAxisInput _vertical;
         private Vector3 _direction;
-        
-        
-        
+
         public MovementInput(ICharacterModel character)
         {
             _horizontal = new PCUserAxisInputHorizontal();
             _vertical = new PCUserAxisInputVertical();
             
-            _movePlayer = new MoveViewModel(character);
-            _rotationPlayer = new RotationViewModel(character);
+            _movePlayer = new MoveModel(character);
+            _rotationPlayer = new RotateModel(character);
             
             _direction = Vector3.zero;
         }

@@ -9,7 +9,7 @@ namespace Unity4.Lesson8
 
         public HelperCharacterModel(HelperCharacterConfiguration helper)
         {
-            Transform = Object.Instantiate(helper.Prefab, helper.Position, Quaternion.identity);
+            Transform = Object.Instantiate(helper.Prefab);
             Bonus = new BonusModel(helper.Bonus);
         }
     }

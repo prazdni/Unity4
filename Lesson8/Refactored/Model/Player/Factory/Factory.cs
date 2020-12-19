@@ -1,31 +1,35 @@
 ﻿namespace Unity4.Lesson8
 {
-    public class Factory : ITupleFactory, IFactory<CharacterConfiguration, ICharacterModel>, IPlayerFactory, 
+    public class Factory : 
+        IFactory<GrenadeConfiguration, IGrenadeModel>, 
+        IFactory<MineConfiguration, IMineModel>, 
+        IFactory<CharacterConfiguration, ICharacterModel>, 
+        IPlayerFactory, 
         IFactory<SimpleEnemyConfiguration, IEnemyViewModel>
     {
-        private ITupleFactory<GrenadeConfiguration, IGrenadeModel, IExplosionViewModel> _grenadeTupleFactory;
-        private ITupleFactory<MineConfiguration, IMineModel, IExplosionViewModel> _mineTupleFactory;
+        private IFactory<GrenadeConfiguration, IGrenadeModel> _grenadeFactory;
+        private IFactory<MineConfiguration, IMineModel> _mineFactory;
         private IFactory<CharacterConfiguration, ICharacterModel> _characterFactory;
         private IFactory<SimpleEnemyConfiguration, IEnemyViewModel> _enemyFactory;
         private IPlayerFactory _playerFactory;
 
         public Factory()
         {
-            _grenadeTupleFactory = new GrenadeTupleFactory();
-            _mineTupleFactory = new MineTupleFactory();
+            _grenadeFactory = new GrenadeFactory();
+            _mineFactory = new MineFactory();
             _characterFactory = new CharacterFactory();
             _playerFactory = new PlayerFactory();
             _enemyFactory = new SimpleEnemyFactory();
         }
         
-        public (IGrenadeModel model, IExplosionViewModel viewModel) Create(GrenadeConfiguration obj)
+        public IGrenadeModel Create(GrenadeConfiguration obj)
         {
-            return _grenadeTupleFactory.Create(obj);
+            return _grenadeFactory.Create(obj);
         }
 
-        public (IMineModel model, IExplosionViewModel viewModel) Create(MineConfiguration obj)
+        public IMineModel Create(MineConfiguration obj)
         {
-            return _mineTupleFactory.Create(obj);
+            return _mineFactory.Create(obj);
         }
         
         public ICharacterModel Create(CharacterConfiguration obj)

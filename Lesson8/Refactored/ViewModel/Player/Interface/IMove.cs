@@ -2,7 +2,7 @@
 
 namespace Unity4.Lesson8
 {
-    public interface IMoveViewModel
+    public interface IMove
     {
         void Move(Vector3 direction, float deltaTime);
     }
