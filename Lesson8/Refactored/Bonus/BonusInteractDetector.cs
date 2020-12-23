@@ -6,9 +6,9 @@ namespace Unity4.Lesson8
     {
         private IPlayerModel _player;
         private IBonusList _bonusList;
-        private IOnPlayerEffect<IBonusModel> _playerEffect;
+        private BonusEffectViewModel _playerEffect;
         
-        public BonusInteractDetector(IPlayerModel player, IBonusList bonusList, IOnPlayerEffect<IBonusModel> playerEffect)
+        public BonusInteractDetector(IPlayerModel player, IBonusList bonusList, BonusEffectViewModel playerEffect)
         {
             _player = player;
             _bonusList = bonusList;
@@ -19,13 +19,15 @@ namespace Unity4.Lesson8
         {
             foreach (var bonus in _bonusList)
             {
-                if ((_player.Character.Transform.position - bonus.Transform.position).sqrMagnitude < 1.0f &&
+                if ((_player.Character.Transform.position - bonus.Transform.position).sqrMagnitude < 0.1f &&
                     bonus.Transform.gameObject.activeSelf)
                 {
                     _playerEffect.Effect(bonus);
                     _bonusList.OnInteract(bonus);
                 }
             }
+            
+            _playerEffect.Execute(deltaTime);
         }
     }
 }

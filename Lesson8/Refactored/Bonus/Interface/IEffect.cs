@@ -3,6 +3,7 @@
     public interface IEffect
     {
         void SetEffect(EffectType type, float effect);
+        void SetEffect(IBonusModel bonus);
         void ReturnToDefault();
     }
 }

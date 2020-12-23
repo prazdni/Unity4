@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace Unity4.Lesson8
 {
-    public class EndGameChecker : MonoBehaviour, IInitialize<IOnPlayerEffect<float>>
+    public class EndGameView : MonoBehaviour, IInitialize<IOnPlayerEffect<float>>
     {
         private float _damageTaken;
         private RectTransform[] _endGameObjects;

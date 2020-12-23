@@ -11,6 +11,7 @@ namespace Unity4.Lesson8
         {
             Transform = Object.Instantiate(helper.Prefab);
             Bonus = new BonusModel(helper.Bonus);
+            Bonus.Transform.gameObject.SetActive(false);
         }
     }
 }

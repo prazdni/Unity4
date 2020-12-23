@@ -5,10 +5,10 @@
         private BonusBehaviour _bonusBehaviour;
         private BonusInteractDetector _bonusInteractDetector;
         
-        public BonusExecute(IBonusList bonusList, IPlayerModel player, IOnPlayerEffect<IBonusModel> playerEffect)
+        public BonusExecute(IBonusList bonusList, IPlayerModel player, BonusEffectViewModel bonusEffectViewModel)
         {
             _bonusBehaviour = new BonusBehaviour(bonusList);
-            _bonusInteractDetector = new BonusInteractDetector(player, bonusList, playerEffect);
+            _bonusInteractDetector = new BonusInteractDetector(player, bonusList, bonusEffectViewModel);
         }
         
         public void Execute(float deltaTime)

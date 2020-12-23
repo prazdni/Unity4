@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Unity4.Lesson8
 {
-    public class HelperCharacterBehaviour : IExecute
+    public class HelperCharacterExecute : IExecute
     {
         private IHelperCharacterModel _helper;
         private IPlayerModel _player;
         private IBonusThrow _bonusThrow;
         
 
-        public HelperCharacterBehaviour(IHelperCharacterModel helper, IPlayerModel player, 
+        public HelperCharacterExecute(IHelperCharacterModel helper, IPlayerModel player, 
             IOnPlayerEffect<IBonusModel> playerEffect)
         {
             _helper = helper;

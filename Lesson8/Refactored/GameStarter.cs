@@ -7,44 +7,57 @@ namespace Unity4.Lesson8
     public class GameStarter : MonoBehaviour
     {
         [SerializeField] private Data _data;
+        
         [SerializeField] private BonusView _bonusView;
         [SerializeField] private ButtonView _buttonView;
         [SerializeField] private HealthView _healthView;
         [SerializeField] private KeyView _keyView;
+        [SerializeField] private EndGameView _endGameView;
         
-        private Factory _factory;
+        private ViewInitializer _viewInitializer;
+        private BonusExecute _bonusExecute;
+        private IExecute _helperExecute;
+        private IExecute _enemyExecute;
+        private IExecute _playerExecute;
         
         private void Start()
         {
-            _factory = new Factory();
+            var factory = new Factory();
+            _viewInitializer = new ViewInitializer(_bonusView ,_buttonView, _healthView, _keyView, _endGameView);
 
-            var characterModel = _factory.Create(_data.CharacterConfiguration);
-
-            var grenade = _factory.Create(_data.GrenadeConfiguration);
-            var grenadePull = new GrenadeModelPull(grenade);
+            var player = factory.Create(factory.Create(_data.CharacterConfiguration),
+                new GrenadeModelPull(factory.Create(_data.GrenadeConfiguration)),
+                new MineModelPull(factory.Create(_data.MineConfiguration)));
             
-            var mine = _factory.Create(_data.MineConfiguration);
-            var minePull = new MineModelPull(mine);
-
-            var player = _factory.Create(characterModel, grenadePull, minePull);
-            _healthView.Initialize(new HealthViewModel(player.Character.HealthModel));
+            _viewInitializer.Initialize(new HealthViewModel(player.Character.HealthModel));
 
             var bonusEffectViewModel = new BonusEffectViewModel(player);
-            _bonusView.Initialize(bonusEffectViewModel);
-            _buttonView.Initialize(new ButtonViewModel(new ButtonModel(_data.ButtonConfiguration)));
-            _keyView.Initialize(new KeyViewModel(new KeyModel(_data.KeyConfiguration)));
-
-            var helperBehaviour =
-                new HelperCharacterBehaviour(new HelperCharacterModel(_data.HelperCharacterConfiguration), player, );
-
-            List<IEnemyViewModel> enemies = new List<IEnemyViewModel>();
-            for (int i = 0; i < _data.SimpleEnemyConfiguration.Quantity; i++)
-            {
-                enemies.Add(_factory.Create(_data.SimpleEnemyConfiguration));
-            }
-            var enemyExecute = new SimpleEnemyExecute(enemies);
+            _viewInitializer.Initialize(new BonusEffectViewModel(player));
             
-            var playerExecute = new PlayerInputExecute(player);
+            _viewInitializer.Initialize(new ButtonViewModel(new ButtonModel(_data.ButtonConfiguration)));
+            _viewInitializer.Initialize(new KeyViewModel(new KeyModel(_data.KeyConfiguration)));
+            
+            _bonusExecute = new BonusExecute(new BonusList(_data.BonusesConfiguration), player, bonusEffectViewModel);
+
+            _helperExecute =
+                new HelperCharacterExecute(new HelperCharacterModel(_data.HelperCharacterConfiguration), player,
+                    bonusEffectViewModel);
+
+            var enemies =
+                ((IFactory<SimpleEnemyConfiguration, List<IEnemyViewModel>>) factory).Create(
+                    _data.SimpleEnemyConfiguration);
+            
+            _enemyExecute = new SimpleEnemyExecute(enemies);
+            
+            _playerExecute = new PlayerInputExecute(player);
+        }
+
+        private void Update()
+        {
+            _bonusExecute.Execute(Time.deltaTime);
+            _helperExecute.Execute(Time.deltaTime);
+            _enemyExecute.Execute(Time.deltaTime);
+            _playerExecute.Execute(Time.deltaTime);
         }
     }
 }

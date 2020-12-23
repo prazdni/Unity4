@@ -14,9 +14,9 @@ namespace Unity4.Lesson8
         public BonusThrow(IPlayerModel playerModel, IBonusModel bonusModel, Vector3 position, 
             IOnPlayerEffect<IBonusModel> playerEffect)
         {
-            _playerEffect = playerEffect;
             _player = playerModel;
             _bonusThrowPull = new BonusThrowPull(bonusModel, position);
+            _playerEffect = playerEffect;
         }
         
         public void Execute(float deltaTime)

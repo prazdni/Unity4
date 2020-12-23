@@ -19,8 +19,7 @@ namespace Unity4.Lesson8
 
         public BonusModel(BonusConfiguration bonus)
         {
-            _transform = Object.Instantiate(bonus.Prefab, Vector3.zero, Quaternion.identity);
-            _transform.gameObject.SetActive(false);
+            _transform = Object.Instantiate(bonus.Prefab);
             _effectType = bonus.EffectType;
             _effect = bonus.BonusEffect;
             _duration = bonus.Duration;
