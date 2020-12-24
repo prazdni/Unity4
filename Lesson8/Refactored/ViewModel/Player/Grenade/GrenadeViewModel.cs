@@ -26,7 +26,7 @@ namespace Unity4.Lesson8
         
         private void Explosion(Vector3 position)
         {
-            Collider[] colliders = new Collider[10];
+            Collider[] colliders = new Collider[Constants.EXPLOSIONOBJECTSQUANTITY];
             Physics.OverlapSphereNonAlloc(position, _grenade.ExplosionRadius, colliders);
 
             foreach (var coll in colliders)

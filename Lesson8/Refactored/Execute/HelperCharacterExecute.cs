@@ -21,7 +21,7 @@ namespace Unity4.Lesson8
         public void Execute(float deltaTime)
         {
             if (Mathf.Approximately((_helper.Transform.position - _player.Character.Transform.position).sqrMagnitude,
-                2.0f))
+                Constants.INTERACTIONDISTANCE))
             {
                 _bonusThrow.Throw();
             }

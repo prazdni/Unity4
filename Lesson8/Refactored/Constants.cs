@@ -13,5 +13,6 @@ namespace Unity4.Lesson8
         public const KeyCode MINE = KeyCode.E;
         public const KeyCode TAKE = KeyCode.F;
         public const float INTERACTIONDISTANCE = 1.0f;
+        public const int EXPLOSIONOBJECTSQUANTITY = 10;
     }
 }

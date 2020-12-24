@@ -16,8 +16,8 @@ namespace Unity4.Lesson8
             _horizontal = new PCUserAxisInputHorizontal();
             _vertical = new PCUserAxisInputVertical();
             
-            _movePlayer = new MoveModel(character);
-            _rotationPlayer = new RotateModel(character);
+            _movePlayer = new Movement(character);
+            _rotationPlayer = new Rotation(character);
             
             _direction = Vector3.zero;
         }

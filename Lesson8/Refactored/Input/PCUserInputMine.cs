@@ -7,12 +7,12 @@ namespace Unity4.Lesson8
     {
         public bool IsKeyDown()
         {
-            return Input.GetKeyDown(InputConstants.MINE);
+            return Input.GetKeyDown(Constants.MINE);
         }
 
         public bool IsKeyUp()
         {
-            return Input.GetKeyUp(InputConstants.MINE);
+            return Input.GetKeyUp(Constants.MINE);
         }
     }
 }

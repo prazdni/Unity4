@@ -1,6 +1,4 @@
-﻿using System;
-using Asteroids;
-using UnityEngine;
+﻿using Asteroids;
 
 namespace Unity4.Lesson8
 {

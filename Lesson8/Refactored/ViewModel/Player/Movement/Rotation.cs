@@ -2,12 +2,12 @@
 
 namespace Unity4.Lesson8
 {
-    public class RotateModel : IRotation
+    public class Rotation : IRotation
     {
         private ICharacterModel _character;
         private float _rotationSpeed;
 
-        public RotateModel(ICharacterModel character)
+        public Rotation(ICharacterModel character)
         {
             _character = character;
             _rotationSpeed = character.SpeedModel.RotationSpeed;

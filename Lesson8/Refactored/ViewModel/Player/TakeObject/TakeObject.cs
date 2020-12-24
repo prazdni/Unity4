@@ -29,7 +29,7 @@ namespace Unity4.Lesson8
             {
                 _cubes.Clear();
 
-                FindTakeObjects(10, "ObjectToTake");
+                FindTakeObjects(Constants.EXPLOSIONOBJECTSQUANTITY, "ObjectToTake");
 
                 if (_cubes.Count >= 1)
                 {
