@@ -3,6 +3,7 @@ using UnityEngine.Serialization;
 
 namespace Asteroids
 {
+    [CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/EnemyData", order = 2)]
     public abstract class EnemyData : ScriptableObject
     {
         [SerializeField] private Transform _enemyPrefab;

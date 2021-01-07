@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Asteroids
+namespace Unity4.Lesson8
 {
-    public static class InputConstants
+    public static class Constants
     {
         public const string HORIZONTAL = "Horizontal";
         public const string VERTICAL = "Vertical";
@@ -12,5 +12,7 @@ namespace Asteroids
         public const KeyCode GRENADE = KeyCode.Q;
         public const KeyCode MINE = KeyCode.E;
         public const KeyCode TAKE = KeyCode.F;
+        public const float INTERACTIONDISTANCE = 1.0f;
+        public const int EXPLOSIONOBJECTSQUANTITY = 10;
     }
 }
